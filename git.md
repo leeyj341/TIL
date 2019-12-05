@@ -104,7 +104,7 @@ origin  https://github.com/leeyj341/TIL.git (push)
 ### 2. 원격 저장소 push
 
 ```bash
-$ git push origin master
+$ git push origin master	
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Delta compression using up to 4 threads
@@ -119,6 +119,8 @@ To https://github.com/leeyj341/TIL.git
 `origin`원격 저장소에 `push`하게 되며, github에서 확인할 수 있다.
 
 이후 작업 과정에서는 `add` -> `commit`으로 이력을 남기고 `push`로 업로드 하면 된다.
+
+* `git push -u origin master`로 한 번 `push`를 해놓으면 다음에는 `git push`만 해도 사실 올라는 감. (`-u` : upstream의 약자)
 
 ### 3. clone
 
