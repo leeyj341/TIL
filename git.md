@@ -105,9 +105,25 @@ origin  https://github.com/leeyj341/TIL.git (push)
 
 ```bash
 $ git push origin master
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 844 bytes | 844.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/leeyj341/TIL.git
+   66f4db0..bf9cb0f  master -> master
 ```
 
 `origin`원격 저장소에 `push`하게 되며, github에서 확인할 수 있다.
 
 이후 작업 과정에서는 `add` -> `commit`으로 이력을 남기고 `push`로 업로드 하면 된다.
 
+### 3. clone
+
+```bash
+$ git clone url~
+```
+
+위 명령어로 원격 저장소 복사할 수 있음.
