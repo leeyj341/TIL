@@ -89,7 +89,7 @@ Date:   Thu Dec 5 16:52:55 2019 +0900
 $ git remote add origin https~		# url 다 등록해야 됨
 ```
 
-원경 저장소(remote)를 `origin`이라는 이름으로 해당 url로 설정한다.
+원격 저장소(remote)를 `origin`이라는 이름으로 해당 url로 설정한다.
 
 등록된 원격 저장소는 아래의 명령어로 확인할 수 있다.
 
