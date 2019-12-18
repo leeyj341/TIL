@@ -24,13 +24,17 @@ FK를 가지고 있는 테이블을 **ChildTable**이라고 부른다.
 
 >정규화된 테이블을 가지고 원하는 작업을 진행하는 과정을 **"JOIN한다"**고 한다.
 
-## SQL Command Line
+## SQL-Plus 명령어
 
-* SQL 명령문 아님
-
-```markdown
+```sql
 conn system/manager
-연결 / 아이디 / 패스워드
+-- 접속 / 아이디 / 패스워드
+cl scr
+-- 지금까지 사용했던 명령, 화면 다 지워짐
+set linesize 300;
+-- 설정한다 / 한 라인에 보여지는 글자 수 / 글자 개수
+desc customer;
+-- customer라는 이름의 테이블 정보를 보여줌
 ```
 
 ## SQL Query
@@ -174,15 +178,6 @@ grant connect,resource to scott;
 #### REVOKE
 
 > 사용자 처리 권한을 제거하는 명령어
-
-### 기타
-
-```sql
-set linesize 300;
--- 설정한다 / 한 라인에 보여지는 글자 수 / 글자 개수
-desc customer;
--- customer라는 이름의 테이블 정보를 보여줌
-```
 
 ### 조건
 
