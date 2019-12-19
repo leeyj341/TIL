@@ -645,12 +645,28 @@ GROUP BY JOB HAVING COUNT(EMPNO) >= 3;
 ### 명령 순서
 
 ```SQL
-SELECT 컬럼
-FROM 테이블
-WHERE 조건
-GROUP BY 그룹화할 컬럼명(함수를 포함한 식도 가능)
-HAVING 그룹화한 결과에 적용할 조건
-ORDER BY 정렬할 컬럼명
+SELECT 컬럼									-- 5
+FROM 테이블									-- 1
+WHERE 조건									-- 2
+GROUP BY 그룹화할 컬럼명(함수를 포함한 식도 가능)	-- 3
+HAVING 그룹화한 결과에 적용할 조건					-- 4
+ORDER BY 정렬할 컬럼명							-- 6
+												-- 실제 실행 순서
+```
+
+```sql
+SELECT JOB, COUNT(EMPNO) num FROM EMP
+WHERE HIREDATE NOT LIKE '83%' 
+GROUP BY JOB HAVING num >= 3;
+-- 실행 순서 때문에 num을 인식하지 못하는 오류 발생
+```
+
+```sql
+SELECT JOB, COUNT(EMPNO) num FROM EMP 
+WHERE HIREDATE NOT LIKE '83%' 
+GROUP BY JOB HAVING COUNT(EMPNO) >= 3 
+ORDER BY NUM;
+-- 실행 가능
 ```
 
 조건이 여러 개일 경우 GROUP BY 이전에 처리할 조건인지, 이후에 처리할 조건인지 판단한 후 QUERY문을 작성하는 것이 좋다.
