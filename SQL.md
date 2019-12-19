@@ -85,6 +85,8 @@ select distinct job from emp;
 
 ### DDL
 
+> **테이블**을 생성, 삭제, 수정하는 명령
+
 #### CREATE
 
 > 데이터베이스나 **테이블을 생성**하는 명령어
@@ -121,6 +123,8 @@ alter user java identified by java123;
 
 ### DML
 
+> 테이블의 **데이터**를 **조작**하는 명령문
+>
 > 반드시 작업이 완료된 후 **commit** 명령문을 실행해야 저장이 됨
 
 #### SELECT
