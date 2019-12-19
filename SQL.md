@@ -57,7 +57,7 @@ desc customer;
 
 ```sql
 select ename 사원명, hiredate as 입사일, sal "나의 급여" from emp;
--- 한글이나 공백이 있는 문자열은 반드시 ""를 사용해 묶어줘야 한다.
+-- 공백이 있는 문자열은 반드시 ""를 사용해 묶어줘야 한다.
 ```
 
 * 여러 컬럼을 합쳐서 하나의 컬럼명으로 조회할 수 있다. `||`연산자 이용
@@ -120,6 +120,7 @@ drop table customer;
 ```sql
 alter user java identified by java123;
 -- 수정한다 / 유저를 / 이름이 java인 / 식별된 / 패스워드가 java123으로
+ALTER SESSION SET NLS_LANGUAGE='AMERICAN';
 ```
 
 ### DML
@@ -342,9 +343,9 @@ select ename, sal, job from emp order by sal desc, ename desc;
 >
 > 함수 안에 함수를 중첩해서 사용할 수 있다.
 
-#####  산술함수
+#####  산술함수(숫자함수)
 
-* ABS(수치)
+* **ABS**(수치)
 
   : 절대값을 구한다.
 
@@ -352,7 +353,7 @@ select ename, sal, job from emp order by sal desc, ename desc;
 SELECT ABS(-355) FROM DUAL;
 ```
 
-* MOD(나눌 대상, 나눌 값)
+* **MOD**(나눌 대상, 나눌 값)
 
   : 나눗셈의 나머지를 구한다.
 
@@ -360,7 +361,7 @@ SELECT ABS(-355) FROM DUAL;
 SELECT MOD(355, 4) FROM DUAL;
 ```
 
-* ROUND(반올림 할 대상, 소수점 자릿수)
+* **ROUND**(반올림 할 대상, 소수점 자릿수)
 
   : 지정한 자릿수까지 반올림한다.
 
@@ -372,7 +373,7 @@ SELECT ROUND(125.8888,0) FROM DUAL;
 
 ##### 문자함수
 
-* LOWER(문자열 or 컬럼명)
+* **LOWER**(문자열 or 컬럼명)
 
   : 값을 소문자로 변환
 
@@ -381,15 +382,15 @@ SELECT LOWER(JOB) FROM EMP;
 -- JOB 컬럼의 데이터가 모두 소문자로 변한다.
 ```
 
-* UPPER(문자열 or 컬럼명)
+* **UPPER**(문자열 or 컬럼명)
 
   : 값을 대문자로 변환
 
-* INITCAP(문자열 or 컬럼명)
+* **INITCAP**(문자열 or 컬럼명)
 
   : 전달된 값의 첫 글자만 대문자로 변환
 
-* SUBSTR(문자열 or 컬럼명, 시작 위치, 추출할 문자열의 수)
+* **SUBSTR**(문자열 or 컬럼명, 시작 위치, 추출할 문자열의 수)
 
 ```SQL
 SELECT SUBSTR('ORACLE',2) FROM DUAL; -- 2번부터 출력
@@ -397,7 +398,7 @@ SELECT SUBSTR('ORACLE',2, 2) FROM DUAL; -- 2번부터 2개 출력
 -- 오라클에서 시작 인덱스는 1이다.
 ```
 
-* LENGTH(문자열 or 컬럼명)
+* **LENGTH**(문자열 or 컬럼명)
 
   : 문자열의 길이를 반환
 
@@ -405,7 +406,7 @@ SELECT SUBSTR('ORACLE',2, 2) FROM DUAL; -- 2번부터 2개 출력
 SELECT LENGTH('오라클') FROM DUAL;
 ```
 
-* INSTR(문자열 or 컬럼명, 찾을 문자, 찾을 위치, n번째 문자)
+* **INSTR**(문자열 or 컬럼명, 찾을 문자, 찾을 위치, n번째 문자)
 
   : 특정 컬럼이나 문자열에서 문자의 위치를 찾을 때 사용하는 함수
 
@@ -422,7 +423,7 @@ SELECT INSTR('ORACLE ORACLE ORACLE','A', -1, 2) FROM DUAL;
 
 찾을 위치나 n번째 문자에 대한 매개변수는 생략이 가능하다.
 
-* CONCAT(문자열 or 컬럼명, 문자열 or 컬럼명)
+* **CONCAT**(문자열 or 컬럼명, 문자열 or 컬럼명)
 
   : || 연산자와 동일, 문자열 연결 함수
 
@@ -474,9 +475,17 @@ SELECT RTRIM('ORACLE', 'A') FROM DUAL;
 -- => 연속된 문자열이 아니기 때문에 제거 안됨
 ```
 
-* TRIM(제거할 문자 FROM 문자열 or 컬럼명)
+* **TRIM**(제거할 문자 FROM 문자열 or 컬럼명)
 
-##### 날짜 함수
+##### 날짜함수
+
+* **SYSDATE**
+
+  : 오늘 날짜, 연산이 가능
+
+```SQL
+SELECT SYSDATE-5, SYSDATE, SYSDATE+5 FROM DUAL;
+```
 
 * CURRENT_DATE - 인수 없음
 
@@ -490,29 +499,143 @@ SELECT RTRIM('ORACLE', 'A') FROM DUAL;
 SELECT CURRENT_DATE FROM DUAL;
 ```
 
-#### 그룹함수
+* EXTRACT(날짜요소 FROM 날짜 or 컬럼명)
 
-> 그룹으로 묶인 데이터에 적용되는 함수. where절에 사용할 수 없다.
+  : 지정한 날짜에서 YEAR,MONTH,DAY,HOUR,... 같은 날짜요소 추출
 
-* COUNT()
+```SQL
+SELECT ENAME, EXTRACT(YEAR FROM HIREDATE) FROM EMP;
+```
 
-> 요소의 개수를 세는 함수
+##### 변환함수
 
-* SUM()
+> 데이터의 타입을 변환하기 위한 함수
+>
+> 또 다른 함수의 매개변수로 사용하게 될 경우 타입이 컬럼의 타입과 일치해야 하므로
 
-> 요소의 합을 구하는 함수
+* **CAST**(값 or 컬럼명 AS 변환할 타입)
 
-* AVG()
+  : 지정한 타입으로 변경. 타입으로는 DATE, INTEGER 등이 있음
 
-> 요소의 평균을 구하는 함수
+```SQL
+SELECT CAST('0001' AS INTEGER) FROM DUAL; -- 1
+SELECT CAST('2019/11/11' AS INTEGER) FROM DUAL; -- 19/11/11
+```
 
-* MAX()
+* **TO_CHAR**(변환할 데이터, 표시할 format)
 
-> 요소의 최대값을 구하는 함수
+  > format은 생략 가능하다
 
-* MIN()
+  * 숫자를 문자열로 변환
 
-> 요소의 최소값을 구하는 함수
+    ex) 세 자리마다 ,를 출력하고 싶은 경우
+
+      숫자의 한 자리를 표시 => 9, 0
+
+      콤마 => ,
+
+      소수점 => .
+
+      통화기호 => \, $, L(지역의 통화기호를 출력)
+
+    ```SQL
+    SELECT ENAME, SAL, TO_CHAR(SAL,'9,999') FROM EMP;
+    ```
+
+  * 날짜를 문자열로 변환 - 년 월 일 각각의 데이터를 추출하고 싶은 경우
+
+    : 년도 => YYYY(2019)
+
+      월 => MM(12)
+
+      일 => DD(19)
+
+      월(이름으로) => MON or MONTH ※ 단, 영어세션일 때만
+
+    ```SQL
+    SELECT ENAME, HIREDATE, TO_CHAR(HIREDATE,'YYYY') FROM EMP;
+    SELECT ENAME,TO_CHAR(HIREDATE,'MON') 월 FROM EMP;
+    ```
+
+```SQL
+SELECT ENAME, SAL, COMM, NVL(TO_CHAR(COMM),'신입사원') FROM EMP;
+```
+
+##### NULL 처리함수
+
+* **NVL**(컬럼, NULL인 경우 처리할 식이나 값)
+
+  : NULL인 경우 대신할 식이나 값을 명시
+
+```SQL
+SELECT ENAME, SAL, COMM, NVL(COMM,0) FROM EMP;
+```
+
+* **NVL2**(컬럼, **표현값1**, 표현값2)
+
+  : 표현값1이  **NULL이 아닌** 경우, 표현값2는 NULL인 경우 사용할 값이나 식
+
+```SQL
+SELECT ENAME, SAL, COMM, NVL2(TO_CHAR(COMM),'영업부','타부서') FROM EMP;
+```
 
 #### GROUP BY
 
+> 테이블에 저장된 레코드를 그룹화 하여 분류하고 싶은 경우 사용
+>
+> SELECT절에는 **무조건 GROUP BY절에 명시한 컬럼명**과 그룹함수만 사용할 수 있다.
+>
+> 데이터가 복잡한 경우 GROUP BY절에 두 개 이상의 컬럼을 명시할 수 있다.
+
+```SQL
+SELECT DEPTNO, JOB, COUNT(EMPNO) FROM EMP 
+GROUP BY DEPTNO,JOB ORDER BY DEPTNO;
+-- 부서 별로 그룹화 된 그룹을 다시 직무 별로 그룹화 한다.
+-- 그냥 출력 시 보기가 지저분하니 보통 ORDER BY로 정렬 후 출력한다.
+```
+
+**GROUP BY와 같이 사용되는 함수**
+
+>그룹으로 묶인(GROUP BY) 데이터에 적용되는 함수. 
+>
+>where절에 사용할 수 없다.
+
+* **COUNT**(공백과 중복이 없는 컬럼 즉, **PK**)
+
+> 테이블 레코드의 개수를 세는 함수
+
+```SQL
+SELECT DEPTNO, COUNT(EMPNO) FROM EMP GROUP BY DEPTNO;
+-- 부서 별 직원의 수 
+```
+
+* **SUM**()
+
+> 숫자열 데이터의 합을 구하는 함수
+
+* **AVG**()
+
+> 숫자열 데이터의 평균을 구하는 함수
+
+```SQL
+SELECT JOB, AVG(SAL) FROM EMP GROUP BY JOB;
+-- 직업 별 급여의 평균
+```
+
+* **MAX**()
+
+> 데이터의 최대값을 구하는 함수
+
+* **MIN**()
+
+> 데이터의 최소값을 구하는 함수
+
+### 명령 순서
+
+```SQL
+SELECT 컬럼
+FROM 테이블
+WHERE 조건
+GROUP BY 그룹화할 컬럼명(함수를 포함한 식도 가능)
+ORDER BY 정렬할 컬럼명
+```
