@@ -647,6 +647,16 @@ WHERE HIREDATE NOT LIKE '83%'
 GROUP BY JOB HAVING COUNT(EMPNO) >= 3;
 ```
 
+### JOIN
+
+> 두 개 테이블에 연관성 있는 컬럼이 존재할 때(PK와 FK)
+>
+> 즉, 조인 조건이 성립할 때 두 개 이상의 테이블에서 데이터를 조회할 수 있다.
+
+```sql
+select dname, ename, sal from emp, dept where emp.deptno = dept.deptno;
+```
+
 ### 명령 순서
 
 ```SQL
