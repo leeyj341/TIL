@@ -636,6 +636,12 @@ SELECT JOB, AVG(SAL) FROM EMP GROUP BY JOB;
 >
 > WHERE절과 달리 그룹함수를 사용할 수 있다.
 
+```SQL
+SELECT JOB, COUNT(EMPNO) FROM EMP 
+WHERE HIREDATE NOT LIKE '83%' 
+GROUP BY JOB HAVING COUNT(EMPNO) >= 3;
+```
+
 ### 명령 순서
 
 ```SQL
@@ -651,6 +657,6 @@ ORDER BY 정렬할 컬럼명
 
 다시 말해서 GROUP BY 전에  적용해야 하는 조건은 WHERE절에 정의,
 
- GROUP BY한 결과에 조건을 적용해야 하는 경우 HAVING절을 이용한다 이용한다.
+ GROUP BY한 결과에 조건을 적용해야 하는 경우 HAVING절을 이용한다.
 
 즉, **조건에 그룹함수를 써야 하면 HAVING에 추가**한다.
