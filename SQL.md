@@ -57,6 +57,7 @@ desc customer;
 
 ```sql
 select ename 사원명, hiredate as 입사일, sal "나의 급여" from emp;
+-- 한글이나 공백이 있는 문자열은 반드시 ""를 사용해 묶어줘야 한다.
 ```
 
 * 여러 컬럼을 합쳐서 하나의 컬럼명으로 조회할 수 있다. `||`연산자 이용
@@ -319,3 +320,12 @@ select ename, sal, job from emp order by sal; -- asc 생략가능
 ```sql
 select ename, sal, job from emp order by sal desc;
 ```
+
+* 여러 개의 소트 키를 지정할 수 있다.
+
+```sql
+select ename, sal, job from emp order by sal desc, ename desc;
+-- 앞 조건으로 정렬된 상태에서 뒤 조건으로 다시 정렬한다.
+```
+
+* null 은 asc일 때 맨 밑으로, desc일 때 맨 위로 정렬된다.
