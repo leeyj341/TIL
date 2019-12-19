@@ -35,6 +35,8 @@ set linesize 300;
 -- 설정한다 / 한 라인에 보여지는 글자 수 / 글자 개수
 desc customer;
 -- customer라는 이름의 테이블 정보를 보여줌
+set pagesize 200;
+-- 조회 결과가 보여지는 크기 조절
 ```
 
 ## SQL Query
@@ -120,7 +122,10 @@ drop table customer;
 ```sql
 alter user java identified by java123;
 -- 수정한다 / 유저를 / 이름이 java인 / 식별된 / 패스워드가 java123으로
-ALTER SESSION SET NLS_LANGUAGE='AMERICAN';
+alter user hr account unlock;
+-- hr 계정 잠금 해제
+alter session set nls_language='american';
+-- sql 세션 변경
 ```
 
 ### DML
