@@ -190,6 +190,8 @@ grant connect,resource to scott;
 
 #### WHERE
 
+> 테이블 내에 있는 모든 행을 조건에 따라 검사한다.
+>
 > select 절 사용시 위 명령을 통해 조건을 추가한다.
 
 * * 검색 결과를 제한 (조건에 만족하는 데이터만 조회)
@@ -329,3 +331,188 @@ select ename, sal, job from emp order by sal desc, ename desc;
 ```
 
 * null 은 asc일 때 맨 밑으로, desc일 때 맨 위로 정렬된다.
+
+### 함수
+
+#### 단일행 함수
+
+> 테이블의 모든 행에 각각 함수가 적용된다.
+>
+> SELECT, WHERE, ORDER BY절에 모두 사용할 수 있다.
+>
+> 함수 안에 함수를 중첩해서 사용할 수 있다.
+
+#####  산술함수
+
+* ABS(수치)
+
+  : 절대값을 구한다.
+
+```SQL
+SELECT ABS(-355) FROM DUAL;
+```
+
+* MOD(나눌 대상, 나눌 값)
+
+  : 나눗셈의 나머지를 구한다.
+
+```SQL
+SELECT MOD(355, 4) FROM DUAL;
+```
+
+* ROUND(반올림 할 대상, 소수점 자릿수)
+
+  : 지정한 자릿수까지 반올림한다.
+
+```SQL
+SELECT ROUND(255.78645, 2) FROM DUAL;
+SELECT ROUND(125.8888,0) FROM DUAL;
+-- 0은 1의 자리, -1은 10의 자리, 이런식으로 자릿수를 정할 수 있다.
+```
+
+##### 문자함수
+
+* LOWER(문자열 or 컬럼명)
+
+  : 값을 소문자로 변환
+
+```sql
+SELECT LOWER(JOB) FROM EMP;
+-- JOB 컬럼의 데이터가 모두 소문자로 변한다.
+```
+
+* UPPER(문자열 or 컬럼명)
+
+  : 값을 대문자로 변환
+
+* INITCAP(문자열 or 컬럼명)
+
+  : 전달된 값의 첫 글자만 대문자로 변환
+
+* SUBSTR(문자열 or 컬럼명, 시작 위치, 추출할 문자열의 수)
+
+```SQL
+SELECT SUBSTR('ORACLE',2) FROM DUAL; -- 2번부터 출력
+SELECT SUBSTR('ORACLE',2, 2) FROM DUAL; -- 2번부터 2개 출력
+-- 오라클에서 시작 인덱스는 1이다.
+```
+
+* LENGTH(문자열 or 컬럼명)
+
+  : 문자열의 길이를 반환
+
+```SQL
+SELECT LENGTH('오라클') FROM DUAL;
+```
+
+* INSTR(문자열 or 컬럼명, 찾을 문자, 찾을 위치, n번째 문자)
+
+  : 특정 컬럼이나 문자열에서 문자의 위치를 찾을 때 사용하는 함수
+
+```SQL
+SELECT INSTR('ORACLE ORACLE ORACLE','A') FROM DUAL;
+-- 가장 먼저 찾은 A의 인덱스 반환
+SELECT INSTR('ORACLE ORACLE ORACLE','A', 5) FROM DUAL;
+-- 5번 위치부터 찾은 A의 인덱스 반환
+SELECT INSTR('ORACLE ORACLE ORACLE','A', 5, 2) FROM DUAL;
+-- 5번 위치부터 찾은 두 번째 A의 인덱스 반환
+SELECT INSTR('ORACLE ORACLE ORACLE','A', -1, 2) FROM DUAL;
+-- 끝에서부터 찾은 두 번째 A의 인덱스 반환
+```
+
+찾을 위치나 n번째 문자에 대한 매개변수는 생략이 가능하다.
+
+* CONCAT(문자열 or 컬럼명, 문자열 or 컬럼명)
+
+  : || 연산자와 동일, 문자열 연결 함수
+
+```SQL
+SELECT CONCAT('ORACLE', 'DBMS') FROM DUAL;
+-- ORACLEDBMS
+```
+
+* **L**PAD(문자열 or 컬럼명, 출력할 문자열의 길이, 채울 문자열)
+
+  : 전체 출력할 문자열의 길이에 문자열을 출력한 후 남는 공간에 정의한 문자를 채워 출력해주는 함수(**왼쪽**에 채운다)
+
+```SQL
+ SELECT LPAD('ORACLE', 10, '*') FROM DUAL;
+ -- 출력 결과 : ****ORACLE
+```
+
+* **R**PAD(문자열 or 컬럼명, 출력할 문자열의 길이, 채울 문자열)
+
+  :전체 출력할 문자열의 길이에 문자열을 출력한 후 남는 공간에 정의한 문자를 채워 출력해주는 함수(**오른쪽**에 채운다)
+
+```SQL
+ SELECT RPAD('ORACLE', 10, '*') FROM DUAL;
+ -- 출력 결과 : ORACLE****
+```
+
+* **L**TRIM(문자열 or 컬럼명, 제거할 문자) - 주로 공백 제거
+
+  : 컬럼에서 매개변수로 정의한 문자를 **왼쪽**부터 찾아 모두 제거
+
+    단, **연속된 문자열**만 가능
+
+```SQL
+SELECT LTRIM('AAAAAAAAAAAAAAAAAORACLE', 'A') FROM DUAL;
+-- ORACLE
+```
+
+* **R**TRIM(문자열 or 컬럼명, 제거할 문자)
+
+  : 컬럼에서 매개변수로 정의한 문자를 **오른쪽**부터 찾아 모두 제거
+
+    단, **연속된 문자열**만 가능
+
+```SQL
+SELECT RTRIM('ORACLEAAAAAAAAAAAAAAAAA', 'A') FROM DUAL;
+-- ORACLE
+SELECT RTRIM('ORACLE', 'A') FROM DUAL;
+-- 결과 : ORACLE 
+-- => 연속된 문자열이 아니기 때문에 제거 안됨
+```
+
+* TRIM(제거할 문자 FROM 문자열 or 컬럼명)
+
+##### 날짜 함수
+
+* CURRENT_DATE - 인수 없음
+
+  : 현재 날짜를 반환
+
+> CURRENT_TIME : 현재 시간
+>
+> CURRENT_TIMESTAMP : CURRENT_DATE + CURRENT_TIME
+
+``` SQL 
+SELECT CURRENT_DATE FROM DUAL;
+```
+
+#### 그룹함수
+
+> 그룹으로 묶인 데이터에 적용되는 함수. where절에 사용할 수 없다.
+
+* COUNT()
+
+> 요소의 개수를 세는 함수
+
+* SUM()
+
+> 요소의 합을 구하는 함수
+
+* AVG()
+
+> 요소의 평균을 구하는 함수
+
+* MAX()
+
+> 요소의 최대값을 구하는 함수
+
+* MIN()
+
+> 요소의 최소값을 구하는 함수
+
+#### GROUP BY
+
