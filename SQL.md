@@ -598,7 +598,7 @@ GROUP BY DEPTNO,JOB ORDER BY DEPTNO;
 
 >그룹으로 묶인(GROUP BY) 데이터에 적용되는 함수. 
 >
->where절에 사용할 수 없다.
+>**where절에 사용할 수 없다.**
 
 * **COUNT**(공백과 중복이 없는 컬럼 즉, **PK**)
 
@@ -630,6 +630,12 @@ SELECT JOB, AVG(SAL) FROM EMP GROUP BY JOB;
 
 > 데이터의 최소값을 구하는 함수
 
+#### HAVING
+
+> 그룹화한 결과에 그룹함수를 사용해 추가 적용할 조건을 적는다.
+>
+> WHERE절과 달리 그룹함수를 사용할 수 있다.
+
 ### 명령 순서
 
 ```SQL
@@ -637,5 +643,14 @@ SELECT 컬럼
 FROM 테이블
 WHERE 조건
 GROUP BY 그룹화할 컬럼명(함수를 포함한 식도 가능)
+HAVING 그룹화한 결과에 적용할 조건
 ORDER BY 정렬할 컬럼명
 ```
+
+조건이 여러 개일 경우 GROUP BY 이전에 처리할 조건인지, 이후에 처리할 조건인지 판단한 후 QUERY문을 작성하는 것이 좋다.
+
+다시 말해서 GROUP BY 전에  적용해야 하는 조건은 WHERE절에 정의,
+
+ GROUP BY한 결과에 조건을 적용해야 하는 경우 HAVING절을 이용한다 이용한다.
+
+즉, **조건에 그룹함수를 써야 하면 HAVING에 추가**한다.
