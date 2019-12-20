@@ -904,6 +904,58 @@ select deptno, ename, sal, hiredate from emp
 where (sal, deptno) in (select min(sal), deptno from emp group by deptno);
 ```
 
+#### 상관형 sub query(상호연관 서브쿼리)
+
+> 메인쿼리의 값이 서브쿼리에 사용되는 경우
+>
+> 메인쿼리 한 row에 대해 서브쿼리가 한 번씩 실행된다.
+>
+> 메인쿼리의 값이 어떤 값이냐에 따라 서브쿼리의 결과가 달라진다.
+
+```sql
+select ename, deptno, sal from emp outer 
+where sal > (select avg(sal) from emp e where outer.deptno = e.deptno);
+```
+
+**[실행 순서]**
+
+1. 메인쿼리에서 비교할 값을 가져온다.
+
+2. 메인쿼리에서 받은 값을 이용해서 서브쿼리가 실행된다.
+
+3. 서브쿼리의 실행 결과로 메인쿼리가 실행된다.
+4. 메인쿼리의 레코드 수만큼 반복된다.
+
+#### from절에서 사용하는 sub query(inline view)
+
+> from절에 서브쿼리를 추가해서 사용
+>
+> 서브쿼리 결과를 가상 테이블로 사용하겠다는 의미
+
+* from절에 추가되는 서브쿼리는 alias를 정의해야 한다.
+
+* from절에 추가되는 서브쿼리 내부의 컬럼은 실제 컬럼처럼 메인쿼리에서 사용해야 하므로
+
+  컬럼도 컬럼명이 존재하거나 alias를 정의해야 합니다.
+
+```sql
+-- select 컬럼명1, ...
+-- from (select 컬럼 ...
+-- 		 from 테이블명
+-- 		 where ...
+-- 		 group by ...) alias
+```
+
+```sql
+select deptcode, countdata 
+from (select deptno as deptcode, count(empno) as countdata 
+      from emp group by deptno) mytable;
+--
+select ename, e.deptno, e.sal 
+from (select deptno, avg(sal) avgsal from emp group by deptno) d_sal, emp e 
+where e.deptno = d_sal.deptno and e.sal > avgsal;
+```
+
 ### VIEW
 
 > 실행결과로 보여지게 만든 **가상 테이블** 
