@@ -534,6 +534,7 @@ SELECT CURRENT_DATE FROM DUAL;
 
 ```SQL
 SELECT ENAME, EXTRACT(YEAR FROM HIREDATE) FROM EMP;
+SELECT HIREDATE FROM EMP WHERE EXTRACT(YEAR FROM HIREDATE) < '1998';
 ```
 
 ##### 변환함수
@@ -632,10 +633,12 @@ GROUP BY DEPTNO,JOB ORDER BY DEPTNO;
 **※** select절에서 **집계함수를 사용하지 않은 컬럼**들은 **전부 GROUP BY에 작성**해야 한다.
 
 ```sql
+-- count를 사용한 employee_id를 제외 모든 컬럼 명시
 select d.department_id, d.department_name, count(e.employee_id), l.city from employees e, departments d, locations l 
 where d.location_id=l.location_id and e.department_id = d.department_id group by d.department_id, d.department_name, l.city;
--- count를 사용한 employee_id를 제외 모든 컬럼 명시
 ```
+
+위 예에서 group by 뒤에 오는 컬럼명 중 **하나라도 제외**하면 **not a GROUP BY expression 에러**를 볼 수 있다.
 
 * **COUNT**(공백과 중복이 없는 컬럼 즉, **PK**)
 
