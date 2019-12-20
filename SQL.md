@@ -156,6 +156,16 @@ select 컬럼명 "alias명";	-- 중간에 공백이 있는 경우 ""로 묶어�
 
 ```sql
 update emp set deptno=20, sal=1300 where empno=7777;
+-- ↓ sub query도 사용할 수 있다.
+update member set addr=(select addr from member where id = 'jang');
+where id = 'lee';
+```
+
+* 복수열 갱신
+
+```sql
+update member set addr = (select addr from member where id = 'jang'),
+				  pass = (select pass from member where id = 'jang');
 ```
 
 #### INSERT
@@ -166,11 +176,30 @@ update emp set deptno=20, sal=1300 where empno=7777;
 insert into Department values ('001', '전산', '7', '02-111-2222');
 -- 삽입한다 / Department 테이블에 / ()안 정보를 가진 행을
 insert into emp(empno, ename, hiredate) values (7777, '장동건', sysdate);
+insert into member values('jjang',null,null);
+```
+
+* 복수 행 insert
+
+```sql
+insert all into member values ('lee', '1234', '인천')
+           into member values ('kang', '1234', '안산')
+           into member values ('hong', '1234', '수원')
+select * from dual;
 ```
 
 #### DELETE
 
-> 테이블에서 행을 **삭제**하는 명령어
+> 테이블 삭제 or 행을 **삭제**하는 명령어
+
+```sql
+delete member;
+delete from member;
+delete from member where id = 'jjang';
+delete from member where id = 'jjang';
+-- ↓ sub query도 사용할 수 있다.
+delete from member where addr=(select addr from member where id = 'jang');
+```
 
 ### DCL
 
