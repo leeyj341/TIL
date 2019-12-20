@@ -376,6 +376,30 @@ SELECT ROUND(125.8888,0) FROM DUAL;
 -- 0은 1의 자리, -1은 10의 자리, 이런식으로 자릿수를 정할 수 있다.
 ```
 
+* **TRUNC**(버림할 대상, 자릿수)
+
+  : 지정한 자릿수까지 버림한다.
+
+```sql
+SELECT ROUND(255.78645, 0) FROM DUAL; -- 결과: 255
+```
+
+* **FLOOR**(버림할 대상)
+
+  : 1의 자리까지 버림한다.
+
+```sql
+SELECT FLOOR(125.8) FROM DUAL; -- 결과: 125
+```
+
+* **CEIL**(올림할 대상)
+
+  : 1의 자리까지 올림한다.
+
+```sql
+SELECT CEIL(125.2) FROM DUAL; -- 결과: 126
+```
+
 ##### 문자함수
 
 * **LOWER**(문자열 or 컬럼명)
@@ -605,6 +629,14 @@ GROUP BY DEPTNO,JOB ORDER BY DEPTNO;
 >
 >**where절에 사용할 수 없다.**
 
+**※** select절에서 **집계함수를 사용하지 않은 컬럼**들은 **전부 GROUP BY에 작성**해야 한다.
+
+```sql
+select d.department_id, d.department_name, count(e.employee_id), l.city from employees e, departments d, locations l 
+where d.location_id=l.location_id and e.department_id = d.department_id group by d.department_id, d.department_name, l.city;
+-- count를 사용한 employee_id를 제외 모든 컬럼 명시
+```
+
 * **COUNT**(공백과 중복이 없는 컬럼 즉, **PK**)
 
 > 테이블 레코드의 개수를 세는 함수
@@ -649,9 +681,37 @@ GROUP BY JOB HAVING COUNT(EMPNO) >= 3;
 
 ### JOIN
 
-> 두 개 테이블에 연관성 있는 컬럼이 존재할 때(PK와 FK)
+> 정규화된 테이블이나 혹은 일반적으로 작성된 **여러 테이블의 컬럼을 이용**해서 **데이터를 조회**하는 것을 조인이라고 한다. 
 >
-> 즉, 조인 조건이 성립할 때 두 개 이상의 테이블에서 데이터를 조회할 수 있다.
+> 조인은 관계형 데이터베이스에 반드시 알아야하는 개념
+>
+> **기본키(PK)와 외래키(FK)의 관계**를 이용해서 테이블을 조인
+>
+> 외래키를 가지고 기본키 테이블에서 값을 비교하여 작업이 진행된다.
+>
+> 조인을 하는 경우 **무조건 WHERE절에 조인조건**을 정의해야 한다.
+>
+> **테이블을 여러 개 사용**하는 경우 **모든 테이블들의 조인조건을 정의해야** 하며 select절에서  사용하지 않고 **조건으로만 사용한다고 하더라도 조인조건은 정의**해야 한다.
+
+**< 사용 방법 >**
+
+* from절에 조회하고 싶은 데이터가 저장된 테이블들을 **모두** 명시
+
+* 조인을 하는 경우 컬럼이 어떤 테이블의 컬럼인지 명확하게 정의하기 위해 "**테이블명.컬럼명**"으로 엑세스 한다.
+
+* **from절에** 테이블명을 정의할 때 **alias를 함께 추가**하여 **alias를 통해 엑세스**하도록 한다.
+
+  ```sql
+  -- select alias1.컬럼명, alias2.컬럼명 ...
+  -- from 테이블1 alias1, 테이블2 alias
+  select d.dname, e.ename, e.sal 
+  from emp e, dept d 
+  where e.deptno = d.deptno and sal >= 3000;
+  ```
+
+* **where절에는 반드시 조인조건을 추가**하며 조인조건에는 두 테이블의 값을 비교하기 위해 정의하는 것이므로 외래키와 기본키를 정의한다.
+
+  외래키테이블(child테이블)에 정의된 컬럼값을 기본키테이블(parent테이블)에서 비교하여 정확하게 **일치하는 경우** 값을 가져온다.(기본 JOIN)
 
 ```sql
 select dname, ename, sal from emp, dept where emp.deptno = dept.deptno;
@@ -681,7 +741,7 @@ SELECT JOB, COUNT(EMPNO) num FROM EMP
 WHERE HIREDATE NOT LIKE '83%' 
 GROUP BY JOB HAVING COUNT(EMPNO) >= 3 
 ORDER BY NUM;
--- 실행 가능
+-- ORDER BY가 제일 마지막에 실행되기 때문에 실행 가능
 ```
 
 조건이 여러 개일 경우 GROUP BY 이전에 처리할 조건인지, 이후에 처리할 조건인지 판단한 후 QUERY문을 작성하는 것이 좋다.
