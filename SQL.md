@@ -950,10 +950,11 @@ where sal > (select avg(sal) from emp e where outer.deptno = e.deptno);
 select deptcode, countdata 
 from (select deptno as deptcode, count(empno) as countdata 
       from emp group by deptno) mytable;
---
+---------------------------------------------------------------------------
 select ename, e.deptno, e.sal 
 from (select deptno, avg(sal) avgsal from emp group by deptno) d_sal, emp e 
 where e.deptno = d_sal.deptno and e.sal > avgsal;
+-- join과 같이 사용할 수 있다.
 ```
 
 ### VIEW
