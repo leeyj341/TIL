@@ -1,0 +1,14 @@
+1. select d.department_name, avg(e.salary) 
+   from employees e, departments d 
+   where e.department_id = d.department_id 
+   group by d.department_name 
+   having avg(e.salary) <= (select avg(salary) from employees where department_id = 70);
+
+2. select employee_id, last_name, salary, department_id 
+   from employees outer 
+   where salary in (select max(salary) from employees e where outer.department_id = e.department_id group by e.department_id) 
+   order by salary desc;
+
+3. select employee_id, last_name, hire_date, salary 
+   from employees 
+   where employee_id = (select manager_id from employees where last_name = 'Fox');
