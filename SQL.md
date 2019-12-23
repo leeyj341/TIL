@@ -1,8 +1,35 @@
 # SQL
 
+## 제약 조건
+
+> 테이블 생성 시 들어갈 값에 제약을 걸 수 있다.
+>
+> 생성 시 추가하지 못한 제약조건을 alter명령을 통해 수정할 수 있다.
+
+```sql
+alter table member add constraint mem_ssn_uni unique(ssn);
+-- 제약조건을 거는 명령어
+alter table member drop constraint member_ck;
+-- 제약조건을 제거하는 명령어
+```
+
+* Not Null
+
+> 컬럼값이 공백이 되면 안된다는 조건
+>
+> 수정하면서 추가할 수 없는 제약 조건이다.
+
+* Unique
+
+> 값이 중복되면 안된다는 조건
+
 * **P**rimary **K**ey(PK)
 
 > 기본키, 중복없이 단 하나만 있어야 하는 키를 말한다.
+>
+> **Not Null**과 **Unique** 특성을 모두 가진다.
+>
+> ChildTable이 존재하면 ParentTable을 삭제할 수 없다.
 
 ![pk](images/pk.png)
 
@@ -11,18 +38,38 @@ PK를 가지고 있는 테이블을 **ParentTable**이라고 부른다.
 * **F**oreign **K**ey
 
 > 외래키, 다른 테이블에 설정된 기본키를 참조해 사용할 때 외래키라고 부른다.
+>
+> Primary key에 없는 값은 당연히 쓸 수 없다.
 
 ![fk](images/fk.png)
 
 FK를 가지고 있는 테이블을 **ChildTable**이라고 부른다.
 
+```sql
+Alter table 테이블명
+Add constraint 제약조건명 foreign key(foreign key제약조건을적용할컬럼)
+			   references 테이블명(기본키–foreign key에서참조할기본키)
+--------------------------------------------------------------------
+alter table member
+add constraint mem_decode_fk foreign key(deptcode)
+               references mydept(code);
+```
+
 * 정규화
 
 > 관계형 데이터베이스의 설계에서 중복을 최소화하게 데이터를 구조화하는 과정을 말한다. 위의 두 표를 예로 볼 수 있다.
 
-* JOIN
+* Check
 
->정규화된 테이블을 가지고 원하는 작업을 진행하는 과정을 **"JOIN한다"**고 한다.
+> 컬럼에 입력되는 값에 제약을 두는 조건
+
+```sql
+alter table member
+add constraint member_ck check(addr in ('인천', '서울', '경기'));
+-- addr에는 인천, 서울, 경기만 올 수 있게 check 제약조건을 걸었다
+```
+
+**※** 테이블을 지우면 관련된 모든 제약조건들이 삭제된다.
 
 ## SQL-Plus 명령어
 
@@ -88,7 +135,7 @@ select distinct job from emp;
 
 ### DDL
 
-> **테이블**을 생성, 삭제, 수정하는 명령
+> **테이블**을 생성(정의), 삭제, 수정하는 명령
 
 #### CREATE
 
@@ -100,7 +147,10 @@ create user java identified by java;
 create table test(
     id varchar2(10) primary key,
     pass varchar2(15) not null,
-	name varchar2(10));
+	name varchar2(10),
+    deptcode varchar2(10),
+	constraint fk_code foreign key(deptcode)
+	references mydept(code));
 -- test 테이블 생성(컬럼 데이터형(글자수) 제약조건);
 ```
 
@@ -126,6 +176,16 @@ alter user hr account unlock;
 -- hr 계정 잠금 해제
 alter session set nls_language='american';
 -- sql 세션 변경
+alter table member add (tel varchar2(15), info varchar2(10));
+-- 컬럼을 기존 테이블에 더한다
+alter table member modify (tel char(11));
+-- 컬럼의 자료형을 수정한다
+alter table member drop column info;
+-- 기존 테이블의 컬럼을 드랍한다
+alter table member rename column addr to address;
+-- 테이블의 컬럼 이름을 수정한다
+alter table member add constraint mem_ssn_uni unique(ssn);
+-- 멤버 테이블 ssn컬럼에 unique 제약 조건을 mem_ssn_uni라는 이름으로 추가한다
 ```
 
 ### DML
@@ -176,7 +236,7 @@ update member set addr = (select addr from member where id = 'jang'),
 insert into Department values ('001', '전산', '7', '02-111-2222');
 -- 삽입한다 / Department 테이블에 / ()안 정보를 가진 행을
 insert into emp(empno, ename, hiredate) values (7777, '장동건', sysdate);
-insert into member values('jjang',null,null);
+insert into member values ('jjang',null,null);
 ```
 
 * 복수 행 insert
@@ -999,3 +1059,33 @@ create view countdata
 as 
 select deptno, avg(sal) empcount from emp group by deptno;
 ```
+
+### 시퀀스
+
+> 값을 순차적으로 늘려야 할 때 사용할 수 있다.
+
+```sql
+-- 시퀀스 생성
+create sequence 시퀀스명
+	start with 시작번호
+	increment by 증가값
+	maxvalue 최대값
+	minvalue 최소값
+	cycle 또는 nocycle;
+-- 시퀀스 검색(현재 계정의 모든 시퀀스를 보여줌)
+SELECT SEQUENCE_NAME, MIN_VALUE, MAX_VALUE, INCREMENT_BY, CYCLE_FLAG 
+FROM USER_SEQUENCES;
+```
+
+```sql
+-- myorder_seq라는 이름으로 시퀀스 생성
+create sequence myorder_seq;
+-- 시퀀스 삭제
+drop sequence myorder_seq;
+
+insert into myorder values(myorder_seq.nextval, 'jang');
+-- myorder 테이블에 시퀀스 값을 증가시키며 데이터를 추가 
+insert into order_detail values(myorder_seq.currval, 'prd001');
+-- order_detail 테이블에 현재 시퀀스값으로 데이터를 추가
+```
+

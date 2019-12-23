@@ -18,3 +18,14 @@
 4. select e.first_name, e.salary 
    from employees e, employees m 
    where e.manager_id = m.employee_id and e.salary > m.salary;
+
+5. select d.department_name, round(avg(e.salary),0) 평균연봉 
+   from employees e, departments d 
+   where e.department_id = d.department_id 
+   group by d.department_name 
+   having avg(salary) >= 5000 
+   order by 평균연봉 desc;
+
+6. select e.first_name, e.salary, e.hire_date, d.department_name 
+   from employees e, departments d 
+   where e.department_id = d.department_id and ;
