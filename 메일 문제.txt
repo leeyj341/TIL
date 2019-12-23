@@ -28,4 +28,9 @@
 
 6. select e.first_name, e.salary, e.hire_date, d.department_name 
    from employees e, departments d 
-   where e.department_id = d.department_id and ;
+   where e.department_id = d.department_id and (sysdate - e.hire_date) / 365 > 15;
+
+7. select j.job_title, count(e.employee_id) 
+   from employees e, jobs j 
+   where e.job_id(+) = j.job_id 
+   group by j.job_title;
