@@ -1,5 +1,3 @@
-# 2019.12.23 
-
 # JDBC
 
 > 자바로 데이터베이스를 연결하는 기술
@@ -60,15 +58,15 @@ Class.forName("oracle.jdbc.driver.OracleDriver");
 * jdbc:mysql://ip:port/데이터베이스명(port - 3306) => mysql
 
 ```java
-//연결 문자열 - 어떤 DBMS를 쓰느냐에 따라 형식이 달라진다.
+// 연결 문자열 - 어떤 DBMS를 쓰느냐에 따라 형식이 달라진다.
 String url = "jdbc:oracle:thin:@localhost:1521:xe";
 //            ----------------  -----------------
 //     오라클에서 사용하는 프로토콜   DBMS가 설치되어 있는 pc의 ip
 
-//접속계정
+// 접속계정
 String user = "scott";
 
-//접속계정 패스워드
+// 접속계정 패스워드
 String password = "tiger";
 
 // 자바가 제공하는 인터페이스
@@ -141,7 +139,118 @@ System.out.println(result + "개 행이 삽입 성공");
 // select는 리턴값이 다르겠지..?
 ```
 
-자바 언어로 실행하는 SQL문은 자동으로 commit이 된다.
+**※자바 언어로 실행**하는 SQL문은 **자동으로 commit**이 된다.
+
+* executeQuery (select문을 실행)
+
+  : select문의 실행 결과로 리턴되는 2차원 표를 자바에서 사용할 수 있도록 모델링 해놓은 객체가 **ResultSet**이고 executeQuery메서드는 결과로 ResultSet객체를 반환하므로 이 객체를 반환받을 수 있도록 정의한다.
+
+  ```java
+  // ResultSet을 참조할 수 있도록 정의
+  ResultSet rs = stmt.executeQuery(sql);
+  ```
+
+  처음 반환되는 ResultSet에서 Cursor가 레코드에 위치하지 않으므로 **Cursor를 ResultSet안의 레코드에 위치할 수 있도록** 내부 메서드를 이용해서 처리한다.
+
+  ```java
+  // ResultSet안에서 모든 레코드를 읽어서 처리할 수 있도록 반복문을 이용
+  while(rs.next()) {
+      //--------
+      // 레코드가 존재하면 true 리턴
+      rs.getxxxx();
+      // 오라클의 타입과 매칭되는 타입으로 메서드명이 구성
+  }
+  ```
+
+  * **getString**(컬럼의 순서 or 컬럼명) : varchar2 or char
+  * **getInt**(컬럼의 순서 or 컬럼명) : 소숫점 없는 number or integer
+  * **getDouble**(컬럼의 순서 or 컬럼명) : 소숫점 있는 number
+  * **getDate**(컬럼의 순서 or 컬럼명) : 날짜 데이터
+
+```java
+while(rs.next()) {
+    System.out.println(rs.getString(1)); 
+    // 조회된 레코드의 첫 번째 값
+    System.out.println(rs.getString("email"));
+    // 조회된 레코드의 컬럼명이 ename인 컬럼의 값
+}
+```
 
 ### PreparedStatement 객체를 이용
+
+> 동적SQL문을 사용해야 하기 때문에
+
+* sql이 실행되는 과정
+  * 쿼리문 읽고 분석
+  * 컴파일
+  * 실행
+
+> Statement는 위의 단계를 모두 반복해서 실행하고 작업하지만 PreparedStatement는
+>
+> **한 번 실행**하고 **캐쉬에 저장**하고 **캐쉬에서 읽어서 작업**한다.
+>
+> PreparedStatement는 sql문을 실행하는 방식이 **sql문을 미리 파싱**한 후 **동적으로 바인딩해서 작업해야 하는 값들만 나중에 연결**해서 인식시키고 실행한다.
+
+**[처리 방법]**
+
+1. sql문을 작성할 때 외부에서 입력받아서 **전달할 부분을 ? 로 정의**한다.
+
+   ```java
+   String sql = "update tb_board set id = ? where boardnum = ?";
+   ```
+
+2. **sql문을 미리 파싱**해야 하므로 실행할 때 sql을 전달하지 않고 **PreparedStatement 객체를 생성할 때 sql문을 전달**한다.
+
+   ```java
+   ptmt = con.prepareStatement(sql);
+   ```
+
+3. ? 에 값을 세팅
+
+   : PreparedStatement 객체에 정의되어 있는**setXXXX()메서드**를 이용
+
+     ResultSet과 동일한 방식으로 메서드를 구성
+
+     ```java
+   setString(1, "xxxx");			 // char, varchar2
+   setInt(1, 000);					 // number, integer
+   setDouble(1, 0.0);				 // 소수점이 있는 number
+   setDate(1, java.sql.Date 객체)	// date
+     ```
+
+4. 실행 메서드 호출
+
+   * insert, delete, update
+
+     ```java
+     int result = ptmt.executeUpdate();	// 매개변수 없다.
+     ```
+
+   * select
+
+     ```java
+     ResultSet rs = ptmt.executeQuery();	// 매개변수 없다.
+     ```
+
+## 4. 자원 반납
+
+> DB 사용 후 자원을 반납하지 않으면 계속 점유하고 있는 상태
+>
+> 즉, 계속 메모리에 할당되어 있는 상태이기 때문에 꼭 해제해야 한다.
+>
+> ResultSet, Statement, Connection 모두 반납해야 한다.
+>
+> **close()** 메서드를 이용해 **자원해제**
+>
+> **가장 마지막에 만들어진 객체부터** 해제한다.
+
+```java
+try {
+	if(rs != null) rs.close();
+	if(stmt != null) stmt.close();
+	if(con != null) con.close();
+} catch (SQLException e) {
+	e.printStackTrace();
+}
+```
 
