@@ -87,6 +87,8 @@ getConnection 메서드가 리턴하는 객체는 Connection 객체에 종속적
 
 ※ SQL Exception에 대한 처리를 해야 한다.
 
+※ Connection은 메서드마다 가지고 있어야 한다.
+
 ## 3. Statement객체 생성하기
 
 > SQL문을 실행하기 위한 역할을 담당하는 클래스는 Statement
@@ -205,7 +207,7 @@ while(rs.next()) {
    ptmt = con.prepareStatement(sql);
    ```
 
-3. ? 에 값을 세팅
+3. ? 에 값을 세팅 (컬럼명이나 테이블명은 ? 로 표현 안됨)
 
    : PreparedStatement 객체에 정의되어 있는**setXXXX()메서드**를 이용
 
