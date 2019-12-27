@@ -67,3 +67,5 @@ list.size()
 ```
 
 Vector와 유사하기 때문에 자세한 설명은 생략한다.
+
+* [자료구조](https://onsil-thegreenhouse.github.io/programming/java/2018/02/18/java_tutorial_1-22/) 참고
