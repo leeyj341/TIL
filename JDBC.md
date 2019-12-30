@@ -103,7 +103,7 @@ getConnection 메서드가 리턴하는 객체는 Connection 객체에 종속적
 
   : 정적 SQL을 실행, 보안에 취약하다.(SQLInjection에 취약)
 
-* PreparedStatement
+* **PreparedStatement**
 
   : 동적 SQL을 실행, 시큐어 코딩에 적합하다.
 
