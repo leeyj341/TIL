@@ -58,7 +58,7 @@
 >동시 접속에 대한 처리가 없어 Web에 적합
 
 ```java
-ArrayList<String> list = new ArrayList<String>();
+![row](../row.png)ArrayList<String> list = new ArrayList<String>();
 list.add("자바");
 list.size()
 .
@@ -69,3 +69,30 @@ list.size()
 Vector와 유사하기 때문에 자세한 설명은 생략한다.
 
 * [자료구조](https://onsil-thegreenhouse.github.io/programming/java/2018/02/18/java_tutorial_1-22/) 참고
+
+![](images/record.png)
+
+* Record 하나의 정보가 DTO가 된다.
+
+```java
+ArrayList<StudentDTO> listStudent = new ArrayList<StudentDTO>();
+```
+
+DB에서 꺼낸 데이터는 ResultSet 형식으로 반환되기 때문에 가공이 필요하다. 
+
+DTO형의 ArrayList를 사용해 ResultSet에 담긴 정보를 가공해 사용할 수 있게 한다.
+
+* DAO의 구조
+
+```java
+public interface BoardDAO {
+	int insert(BoardDTO board);	//게시글 등록 - C
+	int insert(String id, String title, String content);//게시글 등록
+	int update(String id, int boardNum);//게시글 수정 - U
+	int delete(int boardNum);//게시글 삭제 - D
+	ArrayList<BoardDTO> select();//전체 게시글 조회 - List
+	BoardDTO read(int boardNum);//게시글 조회 - R
+	ArrayList<BoardDTO> findByTitle(String title);//게시글 검색 - L
+}
+```
+
