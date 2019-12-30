@@ -4,6 +4,10 @@
 >
 > 기본적인 데이터 처리 기능을 말한다.
 
+* CLRUD
+
+  : **List**까지 포함한 처리 기능
+
 ## DAO
 
 > Data Access Object
