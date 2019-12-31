@@ -8,13 +8,35 @@
 
   : 웹 서버 실행 프로그램
 
+## 웹 요청 방식
+
 * ip
 
   : 컴퓨터의 주소
 
+  ```markdown
+  http://**127.0.0.1**:8088/
+  ```
+
 * port
 
   : 해당 ip에 접속할 수 있는 입구라고 생각하면 된다.
+
+    기본 port는 80이고 생략이 가능하다.
+
+  ```markdown
+  http://127.0.0.1:**8088**/context명/폴더명.../요청할 web application
+  ```
+
+  기본 context는 생략(root)
+
+  ```markdown
+  http://127.0.0.1:8088/docs/index.html
+  ```
+
+   -> docs 폴더에 있는 index.html 페이지를 요청한다
+
+  ※ **http**는 프로토콜이다.
 
 * 도메인
 
@@ -41,6 +63,18 @@
   > 작업 표시줄에 아이콘 오른쪽 클릭 후 start service
 
   * C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\ROOT에 있는 index.jsp 파일을 수정해 첫 페이지를 수정할 수 있다.
+  
+  **※** 혹시 실행이 안된다면 위 경로에 관리자 권한이 허락되어 있는지 확인
+  
+* Tomcat 폴더 구조
+
+![](images/tomcat.png)
+
+* server.xml
+
+  : conf 폴더 내부 server.xml은 설치한 tomcat의 설정 파일이다. 파일을 열어보면 설치 시 설정한 내용을 볼 수 있다.
+
+  ![](images/server_xml.png)
 
 ## View
 
