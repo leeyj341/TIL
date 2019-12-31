@@ -8,6 +8,12 @@
 
   : 웹 서버 실행 프로그램
 
+* 서버기술 Application
+
+> Php, Asp, jango... 자바에서는 servlet, jsp
+>
+> 웹 서버와 DB Server를 연결해주는 프로그램
+
 ## 웹 요청 방식
 
 * ip
@@ -40,7 +46,7 @@
 
 * 도메인
 
-  : 이름으로 매핑된 ip에 접근할 수 있게 해준다.
+  : 이름으로 mapping된 ip에 접근할 수 있게 해준다.
 
 ## WAS
 
@@ -48,7 +54,7 @@
 >
 >자바언어를 실행하고(컨테이너) 웹 상의 작업도 같이 할 수 있도록 도와주는 프로그램
 
-### 설치 방법
+### Tomcat 설치
 
 * apache.org
 
@@ -66,15 +72,43 @@
   
   **※** 혹시 실행이 안된다면 위 경로에 관리자 권한이 허락되어 있는지 확인
   
-* Tomcat 폴더 구조
+* Tomcat 폴더 구조 = 기본 Context
 
-![](images/tomcat.png)
+<img src="images/tomcat.png" style="zoom:80%;" />
 
-* server.xml
+* conf 폴더
 
-  : conf 폴더 내부 server.xml은 설치한 tomcat의 설정 파일이다. 파일을 열어보면 설치 시 설정한 내용을 볼 수 있다.
+  * server.xml
 
-  ![](images/server_xml.png)
+    : conf 폴더 내부 server.xml은 설치한 tomcat의 설정 파일이다. 파일을 열어보면 설치 시 설정한 내용을 볼 수 있다.
+
+    ![](images/server_xml.png)
+
+  * xml의 내용이 변경되면 무조건 서버를 내렸다 올려야 수정사항이 적용된다.
+
+* logs 폴더
+
+  : 사용한 모든 활동 내용이 기록된다. 에러가 발생한 내역도 확인할 수 있다.
+
+* WEB-INF 폴더
+
+  * web.xml
+
+    : 웹 페이지 설정 파일
+
+  * lib(라이브러리)
+
+    : 외부 라이브러리는 이곳에 넣어야 인식한다.
+
+  * classes
+
+    : 자바파일(.class), 서블릿, DAO, DTO, 로직
+
+**<커스텀 Context 구성>**
+
+* 바로 아래엔 jsp, html, js, css, image 같은 것들을 넣을 수 있다.
+
+* 위의 표준화된 구성 규칙을 지켜서 만들어야 한다. 
 
 ## View
 
@@ -86,13 +120,29 @@
 
   : 사용자에게 보여지는 구성요소를 만듬
 
-<img src="images/html.png" style="zoom:67%;" />
+<img src="images/html.png" style="zoom: 50%;" />
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>안녕 ~~~</h1>
+    <h2>좀 더 작은 글자</h2> 
+</body>
+</html>
+```
+
+이런 형식을 가진다. => "Markup Language"라고 부른다
 
 * css
 
   : client style sheet 라고 하며 디자인 적 요소를 추가할 수 있는 언어
 
-<img src="images/css.png" style="zoom: 67%;" />
+<img src="images/css.png" style="zoom: 50%;" />
 
 * javaScript
 
@@ -100,8 +150,20 @@
 
 즉, 뼈대(html), 살(css), 움직임(javaScript)을 구현하는 과정이라고 말할 수 있다.
 
-## 서버기술 Application
+## Java web project
 
-> Php, Asp, jango... 자바에서는 servlet, jsp
->
-> 웹 서버와 DB Server를 연결해주는 프로그램
+* Dynamic Web Project
+
+> 이클립스에서 실행할 수 있는 웹 프로젝트
+
+* 서버가 인식하는 웹 프로젝트 경로 ↓
+
+  C:\iot\work\webwork\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps
+
+  프로젝트 경로 안 .metadata 폴더를 통해 **자동으로 만들어진 기본 형식의 경로**를 볼 수 있다.
+
+  ※ 자세한 [프로젝트 생성 과정](https://blog.naver.com/heaves1/220467437111)
+
+  
+
+  
