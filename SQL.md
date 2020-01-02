@@ -980,7 +980,7 @@ where deptno in (select deptno from emp where ename like '%T%');
 
 > 두 개 이상의 컬럼과 다중행을 반환하는 서브쿼리
 >
-> 메인쿼리 비교 컬럼의 갯수, 종류가 서브쿼리의 반환 결과와 동일
+> 메인쿼리 비교 컬럼의 개수, 종류가 서브쿼리의 반환 결과와 동일
 
 ```sql
 -- ...
