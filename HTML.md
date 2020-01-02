@@ -201,14 +201,61 @@
 
 ### form
 
-> 사용자로부터 데이터를 받아서 서버로 넘기는 데 사용
+> 사용자로부터 **데이터를 받아서 서버로 넘기는 데 사용**
 >
 > 정보를 넣을 수 있는 입력 필드를 가지고 있음
 >
 > 모든 양식관련 태그는 이 태그로 묶어줘야 함
 
-* * action
-  * method
+* * `action` : 백엔드 어플리케이션의 절대경로
+  * `method` : 요청하는 정보의 처리 방식 (`get`,`post`,...)
+
+  ```html
+  <form action="/clientweb/member/login.jsp" method="get">
+      <!-- 이 안에 다양한 input 태그 작성 -->
+  </form>
+  ```
 
 * input
 
+  > 정보를 입력받을 수 있게 하는 태그
+
+  * `name` : 입력받은 정보가 어떤 정보인지 이름을 정한다 (키값)
+  * `type` : 입력받을 정보의 타입을 정한다 (`submit`,`text`,`password`,`reset`,`button`,`checkbox`,`radio`,`file` 등)
+    * `checkbox` : 중복 선택을 지원
+    * `radio` : 하나만 선택 가능
+      * `checked` : 기본적으로 선택되는 값
+    * `button`
+      * `onclick` : 해당 버튼 클릭시 할 행동을 정하는 속성
+  * `value` : 타입에 따라 들어갈 value의 값이 달라진다
+
+  ```html
+  <input type="text" name="nickname" value="별칭을 입력하세요"/>
+  ```
+
+* textarea
+
+  > 글을 입력받을 수 있는 작은 창을 만드는 태그
+
+  * `rows` : 최대 몇 줄을 입력받을 수 있는지 정하는 속성
+  * `cols` : 한 줄에 최대 몇 글자를 입력할 수 있는지 정하는 속성
+
+  ```html
+  <textarea rows="30" cols="30" name="info">자기소개 : </textarea>
+  ```
+
+* select
+
+  > 선택값을 입력받을 수 있는 태그
+
+  * `size` : 최대 보여질 수 있는 목록 개수
+  * `multiple` : 여러 개를 선택할 수 있게 해주는 속성
+
+  ```html
+  <select name="subject4" size="10">
+  	<option value="hadoop">hadoop</option>
+  	<option value="hive">hive</option>
+  	<option value="mongoDB">mongoDB</option>
+  	<option value="sqoop">sqoop</option>
+  </select>
+  ```
