@@ -68,3 +68,6 @@ h1, h2 {
 
 ## positioning
 
+> `static`,`absolute`,`relative`,`fixed`,`inherit`등의 속성으로 웹 페이지 상에서 
+>
+> 요소의 위치를 정하는 것
