@@ -66,7 +66,7 @@ h1, h2 {
 <div class="myclass">test2</div>	<!-- 가능함 -->
 ```
 
-## positioning
+## position
 
 > `static`,`absolute`,`relative`,`fixed`,`inherit`등의 속성으로 웹 페이지 상에서 
 >

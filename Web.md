@@ -178,5 +178,40 @@
 
     있는 파일의 **최근 수정 시간**이 내가 작업한 시간인지 잘 **확인**해야 한다.
 
+## bootstrap
 
+> html + css + javascript
+>
+> 프론트엔드 라이브러리
 
+* cdn 방식
+
+  : 링크에 부트스트랩 서버를 연결해 직접 라이브러리를 다운받는 부하를 줄여준다.
+
+  ```html
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    
+  <div>
+  <div class="jumbotron text-center">
+    <h1>My First Bootstrap Page</h1>
+    <p>This part is inside a .container class.</p> 
+    <p>The .container class provides a responsive fixed width container.</p>    
+    </div>       
+  </div>
+  
+  </body>
+  ```
+
+  link태그로 부트스트랩 css파일이 있는 서버에 연결해주었기 때문에 해당 css가 가진 속성을 쓸 수 있다.
+
+  **jumbotron text-center**는 부트스트랩 css 파일이 제공하는 속성으로 위 html을 실행 시 아래와 같이 속성이 적용된 화면을 볼 수 있다.
+
+  ![](images/bootstrap.png)
