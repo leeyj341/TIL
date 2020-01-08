@@ -151,3 +151,45 @@
 
 > `onclick`과 같이 `html`태그에서 데이터 타입으로 `EVENT`를 받는  속성들을 말한다.
 
+## BOM
+
+> 웹 브라우저가 가진 모든 객체로, 브라우저 객체 모델이라고 한다.
+>
+> 브라우저에 출력되는 모든 구성요소를 객체로 정의하고 접근
+>
+> 모든 객체는 계층구조를 가지고 있다.
+
+* window.document... 이런 식으로 각 객체에 접근이 가능하다
+  * window.document.폼객체.텍스트객체
+  * window.document.myform.id.속성(메소드)
+
+### window
+
+### location
+
+### document
+
+### form(양식 태그)
+
+* form태그와 form태그 하위 태그를 객체로 접근하기 위해서 name속성을 정의하고 접근
+
+  ```html
+  <form name="myform">
+     	아이디 :<input type = "text" name = "id">
+     	패스워드 :<input type = "password" name = "pass">
+  </form>
+  ```
+
+- id를 정의하는 경우
+
+  ```html
+  <div id = "mydiv">  
+  </div>
+  ```
+
+  객체 = document.getElementById("mydiv");
+
+### image
+
+
+
