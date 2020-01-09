@@ -117,11 +117,11 @@
 
 ## 변수
 
-* var
+* `var`
 
   : 데이터 타입을 지정하지 않기 때문에 선언한 변수에 정수나 문자열 모두 저장할 수 있다.
 
-  * **함수 안**에 **var** 타입으로 변수 선언시 **지역변수**로 작동한다.
+  * **함수 안**에 **`var`** 타입으로 변수 선언시 **지역변수**로 작동한다.
   * **함수 밖에서 선언**되면 타입을 떠나 **무조건 전역변수**로 작동한다.
 
 ### 특징
@@ -145,7 +145,7 @@
 </script>
 ```
 
-자바에서는 메서드에 리턴 형식을 적어줘야 하지만 **자바스크립트는 데이터 타입을 지정할 필요가 없기 때문에** return 값이 있는 함수는 위처럼 사용할 수 있다.
+자바에서는 메서드에 리턴 형식을 적어줘야 하지만 **자바스크립트는 데이터 타입을 지정할 필요가 없기 때문에** `return` 값이 있는 함수는 위처럼 사용할 수 있다.
 
 ### 이벤트 핸들러
 
@@ -159,15 +159,163 @@
 >
 > 모든 객체는 계층구조를 가지고 있다.
 
-* window.document... 이런 식으로 각 객체에 접근이 가능하다
-  * window.document.폼객체.텍스트객체
-  * window.document.myform.id.속성(메소드)
+* `window.document... `이런 식으로 각 객체에 접근이 가능하다
+  * `window.document.폼객체.텍스트객체`
+  * `window.document.myform.id.속성(메소드)`
+  * **`window`**는 보통 **생략이 가능**하다.
 
 ### window
 
+1. 대화상자
+
+   > 클라이언트가 볼 수 있는 팝업창으로 내용을 띄워주는 기능
+
+   * `alert`
+
+   * `prompt`
+
+     > 클라이언트에게 팝업으로 입력받는 창을 띄워주는 기능
+
+   * `confirm`
+
+   ```html
+   <script type="text/javascript">
+   	data = myform.num1.value;
+   	alert("문자열의 길이 => " + data.length);
+       confirm("문자열의 길이 => " + data.length);
+       //prompt는 입력창을 제공한다
+       prompt("숫자를 입력하세요.");
+   </script>
+   ```
+
+2. popup
+
+   * `open`
+
+     > 팝업창을 연다.
+
+   * `close`
+
+     > 팝업창을 닫는다.
+
+   ```html
+   <script type="text/javascript">
+   	mypopup2 = window.open("js_popup.html", "mywin", "width=300, height=300, top=100, toolbar=yes");
+       close();
+       // window는 생략이 가능하다.
+   </script>
+   ```
+
+3. 자동실행
+
+   * `setTimeout`
+
+     >매개변수로 실행할 행동과 시간을 받는다.
+
+     ```html
+     <script type="text/javascript">
+     	window.setTimeout("location.href='https://www.naver.com'", 3000);
+         // 3초 뒤에 naver 사이트로 이동한다.
+     </script>
+     ```
+
+   * `setInterval`
+
+     > 위와 마찬가지로 실행할 행동과 시간을 받지만,
+     >
+     > 이 함수는 지정한 시간마다 지정한 행동을 반복한다.
+
+     ```html
+     <script type="text/javascript">
+     	jobid = window.setInterval(showTime, 1000);
+         // showTime 메서드를 1초마다 실행
+         // jobid 객체에 담은 이유는 clearInterval에서 사용하기 위함
+     </script>
+     ```
+
+   * `clearInterval`
+
+     > 실행되고 있는 setInterval을 지운다.
+
+     ```html
+     <script type="text/javascript">
+     	window.clearInterval(jobid);
+         // 위에서 실행했던 setInterval 객체를 지운다.
+     </script>
+     ```
+
+4. 데이터처리
+
+   * `parseInt`
+
+     > 문자열을 숫자 형태로 바꿔준다.
+
+   * `isNaN`
+
+     > 매개변수의 값이 문자이면 `true` 숫자이면 `false`를 반환한다.
+
+   * `eval`
+
+     > 매개변수로 받은 식이나 연산을 실제로 실행한다. 
+     >
+     > => **보안에 취약**하다.
+
+     ```html
+     <script type="text/javascript">
+     	myform.mytext.value = eval(myform.mytext.value);
+         // myform의 mytext라는 이름을 가진 text 내용을 계산해서 다시 그 내용에 갱신
+     </script>
+     ```
+
+   * `trim`
+
+     > 공백을 제거한다.
+
+     ```html
+     <script type="text/javascript">
+         // value가 'text   '인 경우
+     	data = myform.num1.value;
+     	alert("문자열의 길이 => " + data.length); // 7
+     	data2 = data.trim();
+     	alert("문자열의 길이 => " + data2.length);// 4
+     </script>
+     ```
+
 ### location
 
+> 문서의 주소와 관련된 객체로 window객체의 프로퍼티
+
+* `href` 프로퍼티
+
+  ```html
+  <script type="text/javascript">
+  	window.setTimeout("location.href='https://www.naver.com'", 3000);
+      // href 프로퍼티에 이동할 주소로 네이버의 주소를 넣어줬다
+      // =을 사용해 값을 넣어주지 않으면 현재 윈도우의 주소를 반환한다.
+  </script>
+  ```
+
+* `toString` 메서드
+
+  > 현재 윈도우의 주소를 String형식으로 반환
+
+* `reload`메서드
+
+  > 새로고침
+
 ### document
+
+> 현재 문서에 있는 객체에 접근할 수 있게 해주는 객체
+
+```html
+<script type="text/javascript">
+	mycheck = document.cbfmt.food;
+</script>
+<form name="cbfmt">
+    <label>아이스크림</label> 
+	<input type="checkbox" name="food" value="아이스크림" id="ice"> 
+</form>
+```
 
 ### form(양식 태그)
 
@@ -179,15 +327,24 @@
      	패스워드 :<input type = "password" name = "pass">
   </form>
   ```
+  
+  ```html
+  <script type="text/javascript">
+  	myid = document.myform.id.value;
+  </script>
+  ```
 
 - id를 정의하는 경우
 
   ```html
-  <div id = "mydiv">  
-  </div>
+  <div id = "mydiv"></div>
   ```
-
-  객체 = document.getElementById("mydiv");
+  
+```html
+  <script type="text/javascript">
+  	div1 = document.getElementById("mydiv");
+  </script>
+  ```
 
 ### image
 
