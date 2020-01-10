@@ -365,7 +365,7 @@
   <script type="text/javascript">
   	div1 = document.getElementById("mydiv");
   </script>
-  ```
+```
 
 ### image
 
@@ -374,6 +374,8 @@
 > 문서 객체 모델, 브라우저가 HTML 문서를 내부적으로 표현하는 표준 모델
 >
 > HTML 문서의 계층적인 구조를 트리로 표현
+>
+> HTML을 동적으로 제어할 수 있다.
 
 * node
 
@@ -407,5 +409,37 @@ document.getElementById("id");
 document.getElementsByTagName("div(와 같은 태그들 모두 사용 가능)");
 ```
 
+### callback
 
+```html
+<script type="text/javascript">
+	window.onload = function() {
+        // callback
+		document.getElementById("btndomtest").onclick = domTest;
+		document.getElementById("nodetest").onclick = domTest2;
+	}
+</script>
+```
+
+### 함수의 표현식
+
+```javascript
+myfunc = function test(num) {
+	if(num>90){
+		alert("성공");
+	}else{
+		alert("실패");
+	}
+}
+```
+
+위와 같이 함수를 표현식으로 정의하고 사용하면 함수의 호이스팅이 발생하지 않는다.
+
+또한 =연산자를 이용해서 함수를 변수에 할당
+
+이런 경우 정의한 함수명을 사용하지 않고 **변수명을 함수명처럼 이용**한다.
+
+```javascript
+myfunc(90);
+```
 
