@@ -348,5 +348,43 @@
 
 ### image
 
+## DOM
+
+> 문서 객체 모델, 브라우저가 HTML 문서를 내부적으로 표현하는 표준 모델
+>
+> HTML 문서의 계층적인 구조를 트리로 표현
+
+* node
+
+  > 트리에 있는 하나의 잎을 **노드(node)**
+  >
+  > 노드는 문서 안에 들어있는 요소나 텍스트를 나타낸다.
+
+  ```html
+  <html>
+      <head>
+          <title>My title</title>
+      </head>
+      <body>
+          <h1>A heading</h1>
+          <a href="#">Link text</a>
+      </body>
+  </html>
+  ```
+
+  HTML 문서 안 모든 태그가 노드가 된다. (공백도 노드로 취급)
+
+  * DOCUMENT_NODE : HTML 문서로 `window.document`와 같다
+  * ELEMENT_NODE : HTML 요소(`body`,`a`,`p`,`script`,`style`,`html`,`h1` 등)
+  * ATTRIBUTE_NODE : 속성을 나타내는 노드로 `class="myClass"`와 같은 속성
+  * TEXT_NODE : 요소 안에 들어있는 텍스트를 나타내는 노드
+
+### 요소 찾기
+
+```javascript
+document.getElementById("id");
+document.getElementsByTagName("div(와 같은 태그들 모두 사용 가능)");
+```
+
 
 
