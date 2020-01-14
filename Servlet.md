@@ -14,13 +14,23 @@
 >
 > ---
 >
+> 서블릿 객체는 **딱 한 번**만 메모리에 올라간다.
+>
+> ---
+>
 > **정해진 위치란?** 
 >
 > 표준화된 폴더 구조안에 있는 classes 폴더([서블릿 디렉토리](https://blog.naver.com/heaves1/221588663214)) - **시험문제1**
 
 * 사용하는 라이브러리
 
-  <img src="images/servlet&amp;jsp라이브러리.png" style="zoom: 67%;" />
+  ![](images/servlet&jsp라이브러리.png)
+
+* 서블릿 객체의 소멸
+
+  * WAS의 reloading
+  * Context의 reloading
+  * 서블릿 컴파일
 
 ## Servlet 작성규칙
 
@@ -129,8 +139,6 @@
      </servlet>
      ```
 
-     
-
   2. 서블릿 매핑
 
      ```xml
@@ -153,20 +161,79 @@
 
 * get 방식으로 요청
 
-  > 주소표시줄에 입력하고 요청
+  * 주소표시줄에 입력하고 요청
 
-    => 테스트 용으로 사용
+    > 테스트 용으로 사용
 
-  ```markdown
-  					server.xml에 등록한 path, 보통은 context명
-  					------------
-  http://localhost:8088/serverweb/first.multi
-                           		-----------
-                           		web.xml에 등록한 요청 path
-                           		<url-pattern>에 등록
-  ```
+    ```markdown
+    					server.xml에 등록한 path, 보통은 context명
+    					------------
+    http://localhost:8088/serverweb/first.multi
+                             		-----------
+                             		web.xml에 등록한 요청 path
+                             		<url-pattern>에 등록
+    ```
+
+  * 하이퍼링크를 클릭
+
+    ```html
+    <a href="http://서버ip:port/contextpath/서블릿요청url">하이퍼 링크</a>
+    <a href="/contextpath/서블릿요청url">하이퍼 링크</a>
+    ```
+
+  * `<form>`태그에서 method속성을 "get"으로 설정하고 submit버튼 선택
+
+    > `action`속성에 설정한다.
+    >
+    > `form`태그를 정의하면서 method속성을 생략하면 get방식으로 요청된다.
+    >
+    > submit버튼을 눌러서 요청하면 `<form>`태그의 action속성에 정의한 서블릿이 요청(서블릿이 호출되어 실행되도록 한다.)되며 `<form></form>`내부에 정의한 모든 양식태그들의 `name`과 `value`가 서블릿으로 전달된다.
+
+    ```html
+    <form method="get" action="/contextpath/서블릿요청url">
+        <input type="submit" value="전송"/>
+    </form>
+    ```
 
 * post 방식으로 요청
+
+  * `<form>`태그에서 method속성을 "post"으로 설정하고 submit버튼 선택
+
+  >`action`속성에 설정한다.
+  >
+  >submit버튼을 눌러서 요청하면 `<form>`태그의 action속성에 정의한 서블릿이 요청(서블릿이 호출되어 실행되도록 한다.)되며 `<form></form>`내부에 정의한 모든 양식태그들의 `name`과 `value`가 서블릿으로 전달된다.
+
+  ```html
+  <form method="post" action="/contextpath/서블릿요청url">
+      <input type="submit" value="전송"/>
+  </form>
+  ```
+
+* 요청방식
+
+  * get
+
+    : 요청할 때 입력하는 내용이 url뒤에 추가되어 전송되는 양식
+
+      (요청메시지 헤더에 추가)
+
+      클라이언트가 입력하는 내용이 그대로 노출된다.
+
+      전송할 수 있는 데이터의 크기에 제한이 있다.
+
+    > 게시판 목록 확인하기, 상품정보 가져오기, 검색하기......
+
+  * post
+
+    : 요청메시지 body에 추가되어 전송되므로 클라이언트에 노출되지 않지만
+
+      툴을 이용하면 확인할 수 있으므로 암호화해서 전송해야 한다.
+
+      보낼 수 있는 데이터 크기에 제한이 없다.
+
+      서버의 값을 클라이언트가 원하는 값으로 update(변경)하는 경우
+
+    > 회원등록(insert), 회원정보 수정하기(update), 파일업로드, 메일쓰기....
 
 ## 클라이언트가 전달하는 요청 메시지에서 클라이언트의 입력 정보를 추출하기
 
