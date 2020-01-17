@@ -348,6 +348,16 @@
   * 405 : 요청방식에 따라 실행되는 메서드가 없다.
 
     ​		  => 요청방식과 메서드명을 확인
+  
+* 요청재지정
+
+  * 리다이렉트(`sendRequest`)
+
+    ```java
+    response.sendRedirect("/serverweb/dept/insertResult.html");
+    ```
+
+  * 
 
 ## DB 연동
 
