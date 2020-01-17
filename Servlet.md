@@ -32,7 +32,7 @@
   * Context의 reloading
   * 서블릿 컴파일
 
-## Servlet 작성규칙
+## <Servlet 작성규칙>
 
 > 누가 실행해도 작동이 되어야 하기 때문에 작성 규칙이 존재한다.
 
@@ -157,7 +157,7 @@
      </servlet>
      ```
 
-## Servlet 요청 방법
+## <Servlet 요청 방법>
 
 ### get 방식으로 요청
 
@@ -235,7 +235,7 @@
 
     > 회원등록(insert), 회원정보 수정하기(update), 파일업로드, 메일쓰기....
 
-## 클라이언트가 전달하는 요청 메시지에서 클라이언트의 입력 정보를 추출하기
+## <클라이언트가 전달하는 요청 메시지에서 클라이언트의 입력 정보를 추출하기>
 
 ### 요청
 
@@ -407,7 +407,7 @@
 
 * 요청재지정 방법
 
-  * 리다이렉트(`sendRequest`)
+  * 리다이렉트(`sendRedirect`)
 
     1. 문법
 
@@ -441,8 +441,70 @@
        * 두 번 이상의 요청으로 처리되므로 데이터를 공유할 수 없다.
        * 주소표시줄이 마지막 요청path로 변경된다.
 
-  * forward
-  * include
+  * `forward`
+
+    > `sendRedirect`와 다르게 한 번의 요청으로 모든 web application이 실행된다.
+    >
+    > 요청재지정된 application으로 모든 제어를 넘기기 때문에 요청재지정된 jsp파일이 응답된다.
+    >
+    > `RequestDispatcher`가 이런 일을 처리하는 객체
+
+    1. 문법
+
+       ```java
+       RequestDispatcher rd 
+           = request.getRequestDispatcher("요청재지정할 application 경로");
+       								//------------------------------
+       								//"/폴더.../application의 path"
+       								//context의 path를 생략
+       								//jsp, html, 서블릿 모두 가능
+       rd.forward(request, response);
+       		//-------------------
+       		//forward하면서
+       		//request와 response객체가
+       		//전달되므로 같은 request를
+       		//공유해서 사용할 수 있다.
+       ```
+
+    2. 실행흐름
+
+       * 클라이언트가 서블릿을 요청한다.
+       * 서블릿이 실행된다.
+       * 서블릿이 클라이언트로 응답되지 않은 상태에서 `jsp`를 요청재지정(호출)
+       * `jsp`가 실행되고 실행된 결과를 클라이언트로 응답한다. 
+
+    3. 특징
+
+       * 한 번의 요청으로 모든 application이 실행되므로 데이터 공유가 가능
+       * 주소표시줄이 최초 요청된 서블릿path에서 변경되지 않는다.
+       * **서블릿에서 주로 사용되는 요청재지정 방식**
+
+  * `include`
+
+    > forward와 동일하게 `RequestDispatcher`의 메서드를 이용하여 실행하며
+    >
+    > 요청재지정될 때 모든 제어를 `jsp`로 넘기지 않고 다시 서블릿으로 돌아와 서블릿이 응답된다.
+
+    1. 문법
+
+       ```java
+       RequestDispatcher rd 
+           = request.getRequestDispatcher("요청재지정할 application path");
+       rd.include(request, response);
+       ```
+
+    2. 실행흐름
+
+       * 클라이언트가 서블릿을 요청한다.
+       * 서블릿이 실행된다.
+       * 서블릿이 클라이언트로 응답되지 않은 상태에서 `jsp`를 요청재지정(호출)
+       * `jsp`실행이 완료되면 `jsp`실행결과를 갖고 서블릿으로 되돌아온다.
+       * 서블릿에서 최종 응답된다.
+
+    3. 특징
+
+       * `forward`와 동일
+       * `jsp`에서 주로 사용하는 요청재지정 방식
 
 ## DB 연동
 
