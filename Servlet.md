@@ -159,55 +159,55 @@
 
 ## Servlet 요청 방법
 
-* get 방식으로 요청
+### get 방식으로 요청
 
-  * 주소표시줄에 입력하고 요청
+* 주소표시줄에 입력하고 요청
 
-    > 테스트 용으로 사용
+  > 테스트 용으로 사용
 
-    ```markdown
-    					server.xml에 등록한 path, 보통은 context명
-    					------------
-    http://localhost:8088/serverweb/first.multi
-                             		-----------
-                             		web.xml에 등록한 요청 path
-                             		<url-pattern>에 등록
-    ```
+  ```markdown
+  					server.xml에 등록한 path, 보통은 context명
+  					------------
+  http://localhost:8088/serverweb/first.multi
+                           		-----------
+                           		web.xml에 등록한 요청 path
+                           		<url-pattern>에 등록
+  ```
 
-  * 하이퍼링크를 클릭
-
-    ```html
-    <a href="http://서버ip:port/contextpath/서블릿요청url">하이퍼 링크</a>
-    <a href="/contextpath/서블릿요청url">하이퍼 링크</a>
-    ```
-
-  * `<form>`태그에서 method속성을 "get"으로 설정하고 submit버튼 선택
-
-    > `action`속성에 설정한다.
-    >
-    > `form`태그를 정의하면서 method속성을 생략하면 get방식으로 요청된다.
-    >
-    > submit버튼을 눌러서 요청하면 `<form>`태그의 action속성에 정의한 서블릿이 요청(서블릿이 호출되어 실행되도록 한다.)되며 `<form></form>`내부에 정의한 모든 양식태그들의 `name`과 `value`가 서블릿으로 전달된다.
-
-    ```html
-    <form method="get" action="/contextpath/서블릿요청url">
-        <input type="submit" value="전송"/>
-    </form>
-    ```
-
-* post 방식으로 요청
-
-  * `<form>`태그에서 method속성을 "post"으로 설정하고 submit버튼 선택
-
-  >`action`속성에 설정한다.
-  >
-  >submit버튼을 눌러서 요청하면 `<form>`태그의 action속성에 정의한 서블릿이 요청(서블릿이 호출되어 실행되도록 한다.)되며 `<form></form>`내부에 정의한 모든 양식태그들의 `name`과 `value`가 서블릿으로 전달된다.
+* 하이퍼링크를 클릭
 
   ```html
-  <form method="post" action="/contextpath/서블릿요청url">
+  <a href="http://서버ip:port/contextpath/서블릿요청url">하이퍼 링크</a>
+  <a href="/contextpath/서블릿요청url">하이퍼 링크</a>
+  ```
+
+* `<form>`태그에서 method속성을 "get"으로 설정하고 submit버튼 선택
+
+  > `action`속성에 설정한다.
+  >
+  > `form`태그를 정의하면서 method속성을 생략하면 get방식으로 요청된다.
+  >
+  > submit버튼을 눌러서 요청하면 `<form>`태그의 action속성에 정의한 서블릿이 요청(서블릿이 호출되어 실행되도록 한다.)되며 `<form></form>`내부에 정의한 모든 양식태그들의 `name`과 `value`가 서블릿으로 전달된다.
+
+  ```html
+  <form method="get" action="/contextpath/서블릿요청url">
       <input type="submit" value="전송"/>
   </form>
   ```
+
+### post 방식으로 요청
+
+* `<form>`태그에서 method속성을 "post"으로 설정하고 submit버튼 선택
+
+>`action`속성에 설정한다.
+>
+>submit버튼을 눌러서 요청하면 `<form>`태그의 action속성에 정의한 서블릿이 요청(서블릿이 호출되어 실행되도록 한다.)되며 `<form></form>`내부에 정의한 모든 양식태그들의 `name`과 `value`가 서블릿으로 전달된다.
+
+```html
+<form method="post" action="/contextpath/서블릿요청url">
+    <input type="submit" value="전송"/>
+</form>
+```
 
 * 요청방식
 
@@ -236,6 +236,8 @@
     > 회원등록(insert), 회원정보 수정하기(update), 파일업로드, 메일쓰기....
 
 ## 클라이언트가 전달하는 요청 메시지에서 클라이언트의 입력 정보를 추출하기
+
+### 요청
 
 * 요청
 
@@ -306,6 +308,8 @@
 
 **※** `html`을 작성시 **`name`속성**은 반드시 DB에 정의된 **칼럼명과 동일하게** 맞춰줘야 한다.
 
+### 응답
+
 * 응답
 
   > 클라이언트가 요청한 내용을 처리하고, 처리결과를 웹 페이지에 출력되도록 응답해야 한다.
@@ -341,23 +345,104 @@
 
 * 응답코드
 
-  * 200 : 정상요청
+  * **200** : 정상요청
 
-  * 404 : 요청한 url에 맞는 파일을 찾을 수 없습니다.
+  * **404** : 요청한 url에 맞는 파일을 찾을 수 없습니다.
 
-  * 405 : 요청방식에 따라 실행되는 메서드가 없다.
+  * **405** : 요청방식에 따라 실행되는 메서드가 없다.
 
     ​		  => 요청방식과 메서드명을 확인
-  
-* 요청재지정
+
+### 요청재지정
+
+> 클라이언트로부터 들어온 최초 요청을 `servlet`에서 원하는 다른 자원으로 요청을 넘기는 것을 요청재지정이라 한다.
+
+```markdown
+요청재지정을 하는 목적은 서블릿에서 화면단을 분리시키고 분리시킨 화면이 응답하도록 하기 위해 필요하다.
+웹을 개발하기 위해 사용하는 최적화된 패턴인 MVC패턴을 적용하기 위해 반드시 필요한 개념
+```
+
+* 데이터공유
+
+  1. scope
+
+     > page, request, session, application에 각각 map구조(key, value)의 저장소를 갖고 있고 그 저장소에 추가하고 저장소에서 꺼내온다.
+
+     * page -> `javax.servlet.jsp.PageContext`
+
+       > `jsp`문서내에서만 사용할 수 있다.
+
+     * request -> `javax.servlet.ServletRequest`
+
+       >한 번에 request에 대해서 처리하고 response하기 전까지 사용되는 모든 객체에서 공유
+
+     * session -> `javax.servlet.http.HttpSession`
+
+       >세션이 생성되고 사용되는 모든 것들이 공유할 수 있도록 세션이 생성되는 시점 로그인
+       >
+       >세션이 해제되는 시점 로그아웃(or 정해진 시간동안 사이트를 사용하지 않는 경우)
+
+     * application -> `javax.servlet.ServletContext`
+
+       > 모두공개 : 톰캣메모리에 공유
+       >
+       > => 로그인 유무와 상관없이 사용하는 모든 곳에서 공유
+
+  2. 데이터 공유하는 메서드
+
+     > 공유되는 데이터를 `attribute`라 한다.
+
+     ```java
+     모든객체(scope에 해당).setAttribute("공유할 attribute이름", 공유할 객체);
+         												//-----------
+         								 //자바에서 사용할 수 있는 모든 것
+     ```
+
+  3.  공유된 데이터 가져오기
+
+     ```java
+     java.lang.Object 
+         = 모든객체(scope에 해당).getAttribute("공유된 attribute의 이름");
+     ```
+
+* 요청재지정 방법
 
   * 리다이렉트(`sendRequest`)
 
-    ```java
-    response.sendRedirect("/serverweb/dept/insertResult.html");
-    ```
+    1. 문법
 
-  * 
+       : `HttpServletResponse`의 `sendRedirect`메서드를 이용해서 구현
+
+       ```java
+       response.sendRedirect("요청재지정될 web application의 경로");
+       					//-----------------------------------
+       					//html, jsp, 서블릿 모두 가능
+       					// ㅣ
+       			//"/contextpath/폴더명.../요청될 application의 path"
+       			//ex) "/serverweb/dept/list.do"
+       ```
+
+       ex) 
+
+       ```markdown
+       1. 메일에서 누군가가 보낸 메일을 탭에 즐겨찾기 해놓음
+       2. 인터넷 창을 모두 종료하고 다시 켬
+       3. 즐겨찾기를 통해 해당 메일로 들어가면 로그인하라는 창으로 `sendRedirect`
+       **즉, 방어코드를 작성하기 위해 사용하는 기능**
+       ```
+
+    2. 실행흐름
+       * 클라이언트에서 요청한다.
+       * 서블릿이 실행된다.
+       * 서블릿의 실행이 모두 완료되면 클라이언트로 응답한다.
+       * 서블릿에서 요청재지정한(`sendRedirect`에서 설정한) `jsp`파일을 다시 요청한다.
+       * `jsp`페이지가 클라이언트에 응답된다. 
+    3. 특징
+       * 두 번 이상의 요청으로 처리되므로 데이터를 공유할 수 없다.
+       * 주소표시줄이 마지막 요청path로 변경된다.
+
+  * forward
+  * include
 
 ## DB 연동
 
