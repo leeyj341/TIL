@@ -1,13 +1,41 @@
 # Spring
 
-## MVC
+> 유지보수를 어렵게 하는 자잘한 코드를 없애자...!
 
-> **M**odel **V**iew **C**ontroller의 구조로 Servlet을 보완하기 위한 디자인 패턴
+* MVC
+
+  > **M**odel **V**iew **C**ontroller의 구조로 Servlet을 보완하기 위한 디자인 패턴
+  >
+  > 특히 controller부분을 세분화한다.
+
+* spring.io
+  * dynamic web project -> maven project 변환
+  * eclipse : STS 플러그인 추가
+  * STS를 다운로드 받아 직접 사용
+
+## ioc 컨테이너
+
+---
+
+* 컨테이너란?
+
+  : 작성한 코드의 처리과정을 위임받은 독립적인 존재
+
+    프로그래머가 작성한 코드를 스스로 참조, 객체의 생성과 소멸을 컨트롤해준다.
+
+  ex) Servlet 컨테이너, EJB컨테이너...
+
+---
+
+> 스프링에서 객체를 관리하는 컨테이너를 말한다.
 >
-> 특히 controller부분을 세분화한다.
+> 스프링에서 객체는 **Bean**이라고 부른다.
 
-## spring.io
+* 동작 순서
 
-* dynamic web project -> maven project 변환
-* eclipse : STS 플러그인 추가
-* STS를 다운로드 받아 직접 사용
+  1. 어떠한 객체의 명세서(설정파일 즉, properties나 xml)를 작성
+  2. 스프링 라이브러리는 해당 명세대로 객체를 생성
+  3. 생성된 객체(그리고 디펜던시)들을 보관
+
+  이 과정을 실행하고 객체들을 보관하는 공간이 **ioc 컨테이너**다.
+
