@@ -37,10 +37,10 @@
        * 의존성 주입
        	1. DL (Dependency Lookup)
        		=> 컨테이너가 만든 객체를 getBean메서드를 통해 가져와서 사용하는 것
+       		   웹에서는 거의 사용하지 않는다.
        	2. DI (Dependency Injection)
+       		
        ```
-
-       
 
     2. 스프링 내부의 IoC컨테이너를 통해 객체를 관리하면서 커플링을 낮출 수 있다.
 
@@ -84,6 +84,10 @@
 > 스프링에서 객체를 관리하는 컨테이너를 말한다.
 >
 > 스프링에서 객체는 **Bean**이라고 부른다.
+>
+> 모든 스프링 컨테이너는 기본적으로 똑같은 객체를 단 하나 생성한다. => **Singleton**이 기본 속성
+>
+> 컨테이너가 관리하는 객체는 컨테이너가 소멸될 때 소멸된다.
 
 * 동작 순서
 
@@ -95,16 +99,32 @@
 
 ### spring 컨테이너의 종류
 
-* Bean Factory
+```markdown
+BeanFactory
+	^
+	l
+ApplicationContext
+	^
+	l
+WebApplicationContext
+```
 
-  : 개발자가 객체를 요청하는 시점에 객체를 생성한다.
+* BeanFactory 
 
-  ```markdown
-  BeanFactory
-  	^
-  	l
-  ApplicationContext
-  	^
-  	l
-  WebApplicationContext
-  ```
+  : 개발자가 **객체를 요청하는 시점**에 객체를 생성한다. 
+
+   => **lazy-loading**방식으로 일반적인 spring프로젝트에서는 잘 사용하지 않는다.
+
+* ApplicationContext
+
+  : 컨테이너 객체가 생성될 때 전달된 xml안에 정의된 모든 Bean을 생성하고 의존성주입을 처리한다.
+
+   => **pre-loading**방식으로 대부분의 spring프로젝트가 이용하는 컨테이너
+
+```markdown
+* GenericXmlApplicationContext
+	: 파일 시스템이나 클래스 경로에 있는 XML 설정 파일을 로딩하여 구동하는 컨테이너
+* XmlWebApplicationContext
+	: 웹 기반의 스프링 어플리케이션을 개발할 때 사용하는 컨테이너
+```
+
