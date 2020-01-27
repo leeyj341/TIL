@@ -32,19 +32,18 @@
        > `*` 스프링 내부에서 라이브러리로 존재
        >
        > ​	spring-beans-4.2.4.RELEASE.jar 
-   >
+       >
        > ​	spring-context-4.2.4.RELEASE.jar
-    
-       ```markdown
-       * 의존성 주입
-       	1. DL (Dependency Lookup)
-       		=> 컨테이너가 만든 객체를 getBean메서드를 통해 가져와서 사용하는 것
-       		   웹에서는 거의 사용하지 않는다.
-       	2. DI (Dependency Injection)
-   		
-       ```
-
-    2. 스프링 내부의 IoC컨테이너를 통해 객체를 관리하면서 커플링을 낮출 수 있다.
+  
+  ```markdown
+  * 의존성 주입
+  	1. DL (Dependency Lookup)
+   		=> 컨테이너가 만든 객체를 getBean메서드를 통해 가져와서 사용하는 것
+   		=> 웹에서는 거의 사용하지 않는다.
+   	2. DI (Dependency Injection)
+  ```
+  
+  2. 스프링 내부의 IoC컨테이너를 통해 객체를 관리하면서 커플링을 낮출 수 있다.
     
     3. 스프링 내부에는 발생할 수 있는 다양한 모든 경우에 반응할 수 있도록 많은 컨테이너 클래스를 제공한다.
 
