@@ -34,14 +34,16 @@
        > ​	spring-beans-4.2.4.RELEASE.jar 
        >
        > ​	spring-context-4.2.4.RELEASE.jar
-  
-  ```markdown
-  * 의존성 주입
-  	1. DL (Dependency Lookup)
-   		=> 컨테이너가 만든 객체를 getBean메서드를 통해 가져와서 사용하는 것
-   		=> 웹에서는 거의 사용하지 않는다.
-   	2. DI (Dependency Injection)
-  ```
+       
+       ```markdown
+       * 의존성 주입
+       	1. DL (Dependency Lookup)
+        		=> 컨테이너가 만든 객체를 getBean메서드를 통해 가져와서 사용하는 것
+        		=> 웹에서는 거의 사용하지 않는다.
+        	2. DI (Dependency Injection)
+        		=> 각 Class 사이에 필요로 하는 의존관계가 있다면 이를 컨테이너가
+        		자동적으로 연결시켜 주는 것
+       ```
   
   2. 스프링 내부의 IoC컨테이너를 통해 객체를 관리하면서 커플링을 낮출 수 있다.
     
