@@ -85,7 +85,9 @@
 
     > 생성된 공개키 배포
 
-## JDK
+## 프로그램 설치
+
+### JDK
 
 > www.oracle.com 에서 8u231 linux x64 rpm 다운
 
@@ -103,5 +105,83 @@
   >
   > [기타 옵션 참고](https://itdexter.tistory.com/303)
 
-* 
+* 4대의 가상머신 홈 경로에 모두 복사해서 설치해준다
+
+### Hadoop
+
+> apache.org 에서 hadoop-1.2.1.tar.gz 61M 다운
+
+* root 계정에서 hadoop 계정의 홈(/home/hadoop/)으로 파일 복사
+
+* `tar -zxvf 압축을 풀 파일 이름.tar.gz`
+
+  > 위 명령어를 통해 압축파일을 푼다.
+  >
+  > ex) `tar -zxvf hadoop-1.2.1.tar.gz`
+  >
+  > 옵션은 [여기](https://blog.naver.com/heaves1/220511958801) 참고
+
+* tar.gz 파일을 나머지 머신 3대에 복사
+
+* 압축이 풀어진 폴더에 들어가보면 conf, bin, jar파일 등 실행에 필요한 다양한 파일이 있는 걸 볼 수 있다.
+
+#### 설정 파일
+
+> 시작하기 전에 hadoop 계정에 `mkdir`을 통해 hadoop-data 폴더 생성
+
+* hadoop-env.sh
+
+  > java를 설치한 경로로 JAVA_HOME 설정
+
+* masters
+
+  > secondary nameNode로 사용할 hadoop02를 등록
+
+* slaves
+
+  > dataNode와 taskTracker로 사용될 hadoop02, hadoop03, hadoop04를 등록
+
+* core-site.xml
+
+  > 다른 프로그램으로 열기 눌러서 gedit를 선택
+  >
+  > property를 등록한다.
+
+  ![](images/core.png)
+
+* hdfs-site.xml
+
+  > hdfs에 저장될 데이터의 복제본 개수 (dataNode의 개수)
+  >
+  > nameNode용 웹서버의 주소값 완전분산모드이면 반드시 설정
+  >
+  > 보조 네임노드(secondary nameNode)용 웹서버의 주소값
+
+* Mapred-site.xml
+
+  > 데이터노드에서 정의한 주소로 맵리듀스 작업을 요청
+
+* 모든 서버에 위 설정 파일 복사
+
+  > `/home/hadoop/hadoop-1.2.1/conf/*` 을
+  >
+  > ->` /home/hadoop/hadoop-1.2.1/conf/` 로
+
+* 네임노드 포맷
+
+  > `/home/hadoop/hadoop-1.2.1/bin/hadoop namenode -format`
+
+## Hadoop 실행
+
+* `start-all.sh`
+
+  > 클러스터링 된 4대의 가상머신을 각 역할로 실행
+
+* `stop-sll.sh`
+
+  > 서버 중지
+
+* `hadoop01:50070`
+
+  > 하둡의 관리자 페이지
 
