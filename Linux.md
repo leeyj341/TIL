@@ -190,3 +190,10 @@
 
   > 하둡의 관리자 페이지
 
+### 명령실행
+
+* jar 명령어
+
+  > 설치된 hadoop폴더에 있는 jar 파일의 명령을 실행한다.
+  >
+  > `/home/hadoop/hadoop-1.2.1/bin/hadoop jar hadoop-examples-1.2.1.jar wordcount /input/NOTICE.txt /wordcount_output`
