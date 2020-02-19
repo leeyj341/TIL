@@ -11,10 +11,9 @@
   * hadoop**02** ip : 192.168.111.131
   * hadoop**03** ip : 192.168.111.128
   * hadoop**04** ip : 192.168.111.130
-
 * `ssh ip주소`를 통해 다른 가상머신에 연결해보고
-
 * `exit`을 통해 연결을 해제한다.
+* 터미널에서 `#`은 관리자 계정 `$`은 그냥 계정
 
 ### 머신 4대를 클러스터링
 
@@ -173,6 +172,8 @@
 
 ## Hadoop 실행
 
+> bin 폴더 안 shell script 명령어(`.sh`)
+
 * `start-all.sh`
 
   > 클러스터링 된 4대의 가상머신을 각 역할로 실행
@@ -197,3 +198,19 @@
   > 설치된 hadoop폴더에 있는 jar 파일의 명령을 실행한다.
   >
   > `/home/hadoop/hadoop-1.2.1/bin/hadoop jar hadoop-examples-1.2.1.jar wordcount /input/NOTICE.txt /wordcount_output`
+
+* fs 명령어
+
+  > `/home/hadoop/hadoop-1.2.1/bin/hadoop fs`로 시작
+  
+  * bin 폴더 안 hadoop파일로 실행한다.
+
+### 문제 발생 시
+
+> `hadoop`폴더 안 `hadoop-data`를 모든 머신을 돌면서 삭제한 뒤 네임노드 포맷 후 재실행 한다.
+
+```markdown
+* 단 이 경우 모든 만들었던 파일들은 삭제된다.
+  => 하둡 데이터 저장소를 날린 거나 마찬가지이기 때문
+```
+
