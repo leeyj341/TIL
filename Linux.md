@@ -170,6 +170,24 @@
 
   > `/home/hadoop/hadoop-1.2.1/bin/hadoop namenode -format`
 
+#### 동적 ip
+
+> hadoop 홈에서 etc/sysconfig/network-scipts/ 안
+
+* ifcfg-ens33
+
+  > BOOTPROTO="dhcp" 밑에 추가
+
+  ```markdown
+  #BOOTPROTO="none"
+  #IPADDR=192.168.111.129
+  #NETMASK=255.255.255.0
+  #GATEWAY=192.168.111.2
+  #DNS1=192.168.111.2
+  ```
+
+  `#`은 주석처리이기 때문에 활성화하려면 주석을 제거하고 추가
+
 ## Hadoop 실행
 
 > bin 폴더 안 shell script 명령어(`.sh`)
