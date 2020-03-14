@@ -46,6 +46,32 @@
    > tomcat9 tar.gz 파일을 "링크 주소 복사"로 선택한 뒤
    >
    > hadoop02의 하둡 계정에서 `wget`명령을 이용해 다운로드
+   >
+   > `tar -zxvf`명령으로 압축풀기
+
+6. hadoop02의 .bashrc 수정
+
+   >**export** `HADOOP_COMMON_HOME=/home/hadoop/hadoop-1.2.1`
+   >
+   >**export** `HADOOP_MAPRED_HOME=/home/hadoop/hadoop-1.2.1`
+   >
+   >
+   >
+   >**export** `JAVA_HOME=/usr/java/jdk1.8.0_231-amd64`
+   >
+   >**export** `JAVA_OPTS="-Dfile.encoding=UTF-8"`
+   >
+   >**export** `CATALINA_HOME=/home/hadoop/apache-tomcat-9.0.31`
+   >
+   >**export** `CLASS_PATH=.:$JAVA_HOME/lib/too.jar:$CATALINA_HOME/lib/jsp-api.jar:$CATALINA_HOME/lib/servlet-api.jar`
+   >
+   >**export** `PATH=$PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin`
+
+7. tomcat 실행
+
+   > 터미널의 bin 폴더 내에서 `startup.sh`로 시작
+   >
+   > `shutdown.sh`로 종료
 
 ## Flume의 구성요소
 
