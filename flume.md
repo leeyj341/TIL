@@ -41,6 +41,12 @@
 
    ![](images/제목 없음-1584067047503.png)
 
+5. tomcat 설치
+
+   > tomcat9 tar.gz 파일을 "링크 주소 복사"로 선택한 뒤
+   >
+   > hadoop02의 하둡 계정에서 `wget`명령을 이용해 다운로드
+
 ## Flume의 구성요소
 
 > flume의 실행중인 프로세스를 agent라 부르며 source, channel, sink로 구성
@@ -106,3 +112,15 @@
   * `Dflume.root.logger=INFO,console` 
 
     : flume의 로그창에 기록
+    
+    **=> 콘솔에서만 가능하다**
+  
+* `./bin/flume-ng agent -c ./conf/ -f ./conf/hdfs.properties -n myhdfs`
+
+  * -n : agent 이름
+  * -c : the config directory
+  * -f :  the config file
+
+## Flume의 특징
+
+* flume은 메모리가 부족하면 결과가 제대로 나오지 않을 수 있다.

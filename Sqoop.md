@@ -32,13 +32,24 @@
 
   > **`source .bashrc`**
 
-* ojdbc6.jar을 sqoop의 lib으로 옮겨준다.
+* ojdbc6.jar을 하둡에 설치한 sqoop의 lib으로 옮겨준다.
 
 ## import
 
 > RDBMS의 데이터를 HDFS로
 
-```markdown
-sqoop
-```
+* import 명령
 
+  > **`sqoop import -connect jdbc:oracle:thin:@70.12.115.51:1521:xe - username shop -password shop -table tb_product -target-dir /mywork/sqoop/ -as-textfile -columns "prd_no, prd_nm" -m 1`**
+
+  이런식으로 써줄 수 있다.
+
+## export
+
+> HDFS의 데이터를 RDBMS로
+
+* export 명령
+
+  > **`sqoop export -connect jdbd:oracle:thin:@70.12.115.51:1521:xe -username shop -password shop -export-dir /mywork/sqoop/part-m-00000 -table sqoop_result -columns "prd_no, prd_nm"`**
+
+이 외에도 옵션을 사용해 다양한 방식으로 import, export를 처리해줄 수 있다.
