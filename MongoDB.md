@@ -1,6 +1,16 @@
 # MongoDB
 
 > 자바스크립트 기반의 비동기방식 데이터베이스
+>
+> ---
+>
+> * 많은 양의 데이터를 처리해야 할 때
+>
+> * 스키마가 복잡해지는 구조를 가진 데이터일 때
+>
+> ---
+>
+> 위의 경우를 제외하고는 oracle을 사용
 
 * 특징
 
@@ -16,7 +26,7 @@
 
 ## 설치 및 실행
 
-> mongoDB 홈페이지에서 Enterprise버전을 다운
+> mongoDB 홈페이지에서 Enterprise버전(3.6)을 다운
 
 * 환경변수 Path에 MongoDB bin 경로 추가
 
@@ -79,6 +89,8 @@
 * _id (기본키) 
 
   * **반드시 들어가야 함**
+  
+* new Date() : oracle의 sysdate와 같음.
 
 ## 명령
 
@@ -98,56 +110,169 @@
 
 ## CRUD
 
-* mongoDB에 `insert`
+### insert
 
-  > db.컬렉션명.insert({데이터...})
+> db.컬렉션명.insert({데이터...})
+>
+> db.컬렉션명.insertOne({데이터...})
+>
+> db.컬렉션명.insertMany({데이터...})
+
+* document에 대한 정보는 json의 형식으로 작성
+
+* mongodb에서 document를 삽입하면 자동으로 _id가 생성 - 기본키의 역할
+
+  ```markdown
+  "_id" : ObjectId("5e6ee81470642ecd7a6a29aa")
+  				----------------------------
+  				현재 timestamp + machine Id + mongodb프로세스id 
+  				+ 순차번호
+  				  -------
+  				  추가될 때마다 증가
+  ```
+
+### update
+
+* update를 위한 명령어
+
+  * $set 
+
+    : 해당 필드의 값을 변경 (업데이트를 하기 위한 명령어)
+
+    none capped collection인 경우 업데이트할 필드가 없는 경우, 추가한다.
+
+    > db.컬렉션명.update({조건필드: 값}, //sql의 update문 where절
+    >
+    > ​									{$set: {수정할필드: 수정값}, //set절
+    >
+    > ​                                    {update와 관련된 옵션: 옵션값});
+
+  * $inc : 해당필드에 저장된 숫자의 값을 증가
+
+  * $unset : 원하는 필드를 삭제할 수 있다.
+
+  * 옵션
+
+    * multi 
+
+      : true를 추가하지 않으면 조건에 만족하는 document 중 첫 번째 document만 update
+
+* document 수정
+
+* 조건을 적용해서 수정하기 위한 코드도 json으로 구현
+
+* save
+
+  : 이미 중복된 document가 있으면 수정된 값으로 대체된다.
+
+  ```javascript
+  var x = db.score.findOne() // collection의 첫 번째 document를 리턴
+  x.num = 120
+  db.score.save(x);
+  
+  // ↓ 이렇게도 사용이 가능
+  var x = db.score.find();
+  for(var i=0; i < db.score.find().count(); i++) {
+      x[i].num = 1000; 
+      db.score.save(x[i]);
+  };
+  ```
+
+### select
+
+* findOne() : 첫 번째 document만 리턴
+* count() : 행의 갯수를 리턴
+* sort({필드명:sort옵션}) : 정렬
+  * 1 : 오름차순
+  * -1 : 내림차순
+* limit(숫자) : 위에서부터 숫자만큼의 document만 조회
+* skip(숫자) : 위에서부터 숫자만큼의 document를 skip하고 조회
+
+* find
+
+  > db.컬렉션명.find(조건, 조회할 필드에 대한 명시)
   >
-  > db.컬렉션명.insertOne({데이터...})
+  > `-`아무런 옵션이 없으면 전체 조회
   >
-  > db.컬렉션명.insertMany({데이터...})
+  > 조건, 조회할 필드에 대한 명시 모두 json
 
-  * document에 대한 정보는 json의 형식으로 작성
+  * 조회할 필드의 정보 명시
 
-  * mongodb에서 document를 삽입하면 자동으로 _id가 생성 - 기본키의 역할
+    * 형식 :
 
-    ```markdown
-    "_id" : ObjectId("5e6ee81470642ecd7a6a29aa")
-    				----------------------------
-    				현재 timestamp + machine Id + mongodb프로세스id 
-    				+ 순차번호
-    				  -------
-    				  추가될 때마다 증가
-    ```
+      ```markdown
+      {필드명:1} : 화면에 표시하고 싶은 필드
+      {필드명:0}	: 명시한 필드가 조회되지 않도록 처리
+      ```
 
-* update
+  * 조건
 
-  * update를 위한 명령어
+    * $lt	 :	`<` **l**ess**t**han
+    * $gt    :    `>`
+    * $lte   :    `<=`
+    * $gte  :    `>=`
 
-    * $set 
+    > ex) addr이 인천인 데이터 : id, name, dept, addr
+    >
+    > ​      db.score.find({addr:"인천"}, {id:1,name:1,dept:1,addr:1});
+    >
+    > ex) score컬렉션에서 java가 90점 이상인 document 조회
+    >
+    > ​	  (id, name, dept, java)
+    >
+    > ​	  db.score.find({java: {$gte:90}},{_id:0,id:1,name:1,dept:1,addr:1});
 
-      : 해당 필드의 값을 변경 (업데이트를 하기 위한 명령어)
+    * $or : 여러 필드를 이용해서 같이 비교 가능
 
-      none capped collection인 경우 업데이트할 필드가 없는 경우, 추가한다.
+      >db.score.find({$or:[{dept: "인사"},{addr: "인천"}]});
 
-      > db.컬렉션명.update({조건필드: 값}, //sql의 update문 where절
-      >
-      > ​									{$set: {수정할필드: 수정값}, //set절
-      >
-      > ​                                    {update와 관련된 옵션: 옵션값});
+    * $and : and
 
-    * $inc : 해당필드에 저장된 숫자의 값을 증가
+    * $in : 하나의 필드에서만 비교
 
-    * $unset : 원하는 필드를 삭제할 수 있다.
+      >db.score.find({id:{$in:["song","hong","kang"]}});
+
+    * $nin : not in
+
+      ​			즉, 정의한 조건을 제외한 document를 조회
+
+    * $exists : 입력한 값이 존재하는지 
+
+      > db.score.find({servlet:{$exists:null}});
+
+  * 정규표현식을 적용
+
+    > db.컬렉션명.find({조건필드명:/정규표현식/옵션});
+    >
+    > ex) db.score.find({id:/kim|park/});
+
+    * 기호
+
+      * | : or
+
+      * ^ : ^뒤의 문자로 시작하는지 체크
+
+      * [] : 영문자 하나는 한 글자를 의미하고 []로 묶으면 여러 글자를 표현
+
+        ​	  ex) [a-i] : a에서 i까지의 모든 영문자
 
     * 옵션
 
-      * multi 
+      * i : 대소문자 구분없이 조회 가능
 
-        : true를 추가하지 않으면 조건에 만족하는 document 중 첫 번째 document만 update
+        >db.score.find({id:/kim|park/**i**});
 
-  * document 수정
+### delete
 
-  * 조건을 적용해서 수정하기 위한 코드도 json으로 구현
+> mongodb에 저장된 데이터 삭제
+>
+> 조건을 정의하는 방법은 find()나 update()와 동일
+
+* remove()
+
+  > db.컬렉션명.remove({필드명:조건});
+  >
+  > ex) db.score.remove({servlet:{$lt:80}});
 
 ### 배열
 
@@ -192,4 +317,73 @@
     * 조건 **여러 개**
 
     >`db.score.update({id:"jang"},{$pullAll:{"info.city":["천안","군산"]}});`
+
+### json
+
+> **J**ava**S**cript **O**bject **N**otation라는 의미의 축약어로 데이터를 저장하거나 전송할 때 많이 사용되는 **경량의 DATA 교환 형식**
+>
+> 어떤 프로그래밍 방식이 아닌 데이터 포맷
+
+* 특정 언어에 종속되지 않는다.
+* JSON 문서 형식은 자바스크립트 객체의 형식을 기반으로 만들어졌다.
+
+#### 문법
+
+> "key" : "value"
+
+* {} : json object
+* [] : json array
+
+## Aggregation
+
+> 오라클의 group by와 동일하다.
+
+* 간단한 집계를 구하는 경우 mapreduce를 적용하는 것 보다 간단하게 작업 가능
+
+* pipeline을 내부에서 구현
+
+  한 연산의 결과가 또 다른 연산의 input데이터로 활용
+
+### 명령어(RDBMS와 비교)
+
+* $match : where절, having절
+
+  ```markdown
+  $match:{필드명:{연산자:조건값}}
+  			  -------------
+  			  비교연산 or 조건이 여러 개
+  ```
+
+  >db.exam.aggregate([{$match:{addr:"인천"}},{$group:{_id:"$dept", num:{$avg:"$java"}}}]);
+
+* $group : group by
+
+  ```markdown
+  {$group: {id: 그룹으로 표시할 필드명, 
+  연산결과를 저장할 필드명:{연산함수:값}}
+  							----
+  							숫자나 필드참조
+  ```
+
+* $sort : order by
+
+* $avg : avg 그룹함수
+
+* $sum : sum 그룹함수
+
+* $max : max 그룹함수
+
+### 형식
+
+```markdown
+db.컬렉션명.aggregate(aggregate명령어를 정의)
+					---------------------
+					여러 가지를 적용해야 하는 경우 배열로
+ex) addr별 인원수
+	db.exam.aggregate([
+			{$group:{_id:"$addr",
+					 num:{$sum:1}}
+			}
+	]);
+```
 
