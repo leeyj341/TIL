@@ -387,3 +387,29 @@ ex) addr별 인원수
 	]);
 ```
 
+## 데이터 관리
+
+### import
+
+> 클라이언트에서 mongodb로 데이터를 import 할 수 있다.
+
+```markdown
+mongoimport /d bigdata /c test /type csv /file test.csv /headerline
+> 도스창에서 위 명령어로 데이터 임포트 가능
+  만약 외부에서 import 하려면 /hostname 속성을 줘야한다.
+```
+
+* /d : database 이름
+* /c : collection 이름
+* /type : import하고자 하는 파일의 타입
+* /file : import할 파일
+* /headerline : 데이터의 첫 번째 줄 제외
+
+### export
+
+> import와 마찬가지로 mongodb의 데이터를 클라이언트로 export 또한 가능하다.
+
+```markdown
+mongoexport -d bigdata -c score -o score.json
+> 마찬가지로 도스창에서 실행가능
+```
