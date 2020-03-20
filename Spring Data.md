@@ -40,6 +40,9 @@
 * @Document(collection="score")
 
   : 핵심 클래스가 인식할 수 있도록 annotation을 추가한다. 어떤 Collection의 document인지 모르기 때문에 **반드시 Collection명을 지정**해주어야 한다.
+  
+* Controller, DAO, Service 단의 구조는 RDBMS과 거의 일치한다.
 
+* ScoreRepository
 
-
+* MongoTemplate
