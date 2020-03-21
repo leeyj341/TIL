@@ -157,3 +157,16 @@
   #		읽을 데이터  , x축   , y축    ,  그래프의 모양
   qplot(data = mpg, x= drv, y = hwy, geom = "line")
   ```
+
+## apply
+
+## filter
+
+### 데이터 정제
+
+### 이상데이터 잘라내기
+
+## crawl
+
+### 웹페이지에서 데이터 추출(csv)
+
