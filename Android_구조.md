@@ -19,7 +19,7 @@
     * 켤 때
 
       ```markdown
-      onCreate()		* 한 번 호출됨
+      onCreate()		* 한 번 호출됨. Activity 최초 실행 시
       	v
       onStart()
       	v
