@@ -187,11 +187,39 @@
 
 ## Inflator
 
+>xml로 정의된 view를 실제 객체화 시키는 용도
+
+* 미리 xml로 디자인한 view를 java코드에서 Inflator를 활용해 바로 생성이 가능하다
+
+* inflation이란?
+
+  > 레이아웃 xml에 명시한 위젯이 안드로이드 메모리에 생성되는 과정을 말함
+
+  ```java
+  setContintView();
+  // xml레이아웃을 인플레이션 한 후 화면에 보여주는 기능
+  // 인플레이션 된 위젯을 화면에 구성하는 기능
+  ```
+
 ### LayoutInflator
 
-> view를 생성하는 객체
+> LayoutView를 생성할 수 있는 객체
 >
-> xml로 생성하지 않고 코드로 생성할 때 사용
+> ---
+>
+> ↓ 아래 코드로 가져올 수 있다.
+
+```java
+LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLATOR_SERVICE);
+```
+
+* `Inflate()`
+
+  > xml에 쓰여있는 view의 정의를 실제 view 객체로 만드는 역할
+  >
+  > **compile time에 완성된 xml 파일**에 대해서만 적용 가능
+  >
+  > 즉, **R. 으로 시작되는 resource파일들만** inflate가 가능하다.
 
 ## Adapter
 
@@ -262,3 +290,50 @@
   * `Adapter`를 통해 만들어진 리스트뷰를 보여줄 액티비티
 
     * main layout 필요
+
+## Intent
+
+> 실행할 액티비티의 정보를 담고 있는 객체
+>
+> 데이터를 담아서 뷰끼리 공유할 수 있게 해줌
+
+* 기본실행 과정
+
+  1. 인텐트 객체를 생성하고 실행할 액티비티의 정보와 **데이터**를 세팅
+
+     * 값
+
+       ```java
+       putExtra()
+       ```
+
+     * 객체
+
+       >인텐트에 객체를 공유하고 싶은 경우 반드시 Parcelable 타입으로 정의
+
+  2. 안드로이드 OS에 인텐트 객체를 넘겨주며 의뢰
+
+     > 액티비티 실행 명령어
+     >
+     > `startActivity(인텐트 객체)`
+     >
+     > `startActivityForResult(인텐트 객체, 상수)`
+
+  3. 인텐트에 설정되어 있는 액티비티 호출
+
+  4. 호출된 액티비티에서는 안드로이드 OS가 넘겨준 인텐트를 가져온다.
+
+  5. 인텐트에 저장된 데이터를 꺼내서 활용하는 작업
+
+* 명시적 Intent
+
+  > 앱 내에서 어떤 class에게 정보를 보낼지 지정해 Intent를 생성하는 것
+
+### Parcelable
+
+> 패킷과 비슷한 방식으로 안드로이드끼리 객체를 공유할 때 정의해야 한다
+
+* Creator
+  1. OS에서 객체를 꺼낼 때 Parcelable 객체에서 CREATOR 변수를 찾아 `createFromParcel`을 실행한다.
+  2. Parcelable에 공유된 Parcel 정보를 읽어 해당 정보를 가진 객체를 생성해 반환한다.
+
