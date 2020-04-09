@@ -1,6 +1,6 @@
 # Sqoop
 
-> RDBMS와 하둡 사이터에서 데이터 이관을 지원하는 툴
+> RDBMS와 하둡 사이에서 데이터 이관을 지원하는 툴
 
 ```markdown
 관계형 데이터베이스의 데이터를 HDFS, Hive, Hbase에 import하거나, 반대로 관계형 DB로 export할 수 있다.
