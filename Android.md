@@ -337,3 +337,131 @@ LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLAT
   1. OS에서 객체를 꺼낼 때 Parcelable 객체에서 CREATOR 변수를 찾아 `createFromParcel`을 실행한다.
   2. Parcelable에 공유된 Parcel 정보를 읽어 해당 정보를 가진 객체를 생성해 반환한다.
 
+## Permission
+
+> 폰 내부에서 사용할 권한
+>
+> ex) 다른 앱 접근 권한
+
+### 종류
+
+* 일반권한 
+* 위험 권한
+
+### 사용 방법
+
+* manifest 파일에 정의
+
+  ```java
+  <permission 
+      android:name="com.exam.permission.JAVA_PERMISSION" //권한 이름
+      android:label="JAVA_PERMISSION"	//어떤 권한인지 명시
+      android:description="@string/per_msg" //권한 내용 요약
+      android:protectionLevel="normal"> //권한 종류
+  </permission>
+  ```
+
+* 사용하는 곳 manifest
+
+  ```java
+  <uses-permission
+      android:name="com.exam.permission.JAVA_PERMISSION" />
+       			//------------------------------------
+          		//	등록한 곳과 같은 이름
+  ```
+
+### 위험권한
+
+> 액티비티를 실행하거나 버튼을 누르거나 어떤 기능을 사용할 때 권한에 대한 처리를 할 수 있도록 구현
+>
+> ---
+>
+> 일반 권한과 달리 `uses-permission`정의와 함께 추가로 코드를 작성해주어야 한다.
+>
+> 앱 실행 시점에 권한을 체크한다.
+
+#### 사용 메서드
+
+* `checkSelfPermission()`
+
+  : 퍼미션의 현재 상태를 확인하는 메서드
+
+  * PERMISSION_DENIED
+
+    : 퍼미션이 부여되지 않은 상태
+
+  * PERMISSION_GRANTED
+
+    : 퍼미션이 부여되어 있는 상태
+
+* `requestPermissions()`
+
+  : 권한이 체크되어 있지 않은 경우에 권한을 요청하는 메시지를 표시
+
+  (이 메서드 이 외에도 제공되는 메서드는 여러 개)
+
+  * PERMISSION_DENIED(return 값)
+  * PERMISSION_GRANTED(return 값)
+
+* `onRequestPermissionResult()`
+
+  : requestPermissions의 결과로 호출되는 메서드
+
+    퍼미션 설정 정보를 매개변수로 넘긴다.
+
+  * requestCode
+
+    : 퍼미션 요청할 때 넘긴 요청코드
+
+  * permissions
+
+    : 요청 퍼미션 목록
+
+  * grantResults
+
+    : 퍼미션 설정 성공 결과
+
+#### 처리순서
+
+1. 현재 사용하려고 하는 권한이 설정되어 있는지 체크
+
+   `-` `checkSelfPermission()`
+
+2. 1번에서 리턴값이 PERMISSION_DENIED인 경우 사용자가 권한을 설정할 수 있도록 메시지를 표시
+
+   `-` `requestPermissions()`
+
+3. 요청 처리 후 자동으로 호출되는 메서드를 통해 다음에 어떤 처리를 할 것인지 정의
+
+   * 권한 성공 
+
+     -> 기능이 실행되도록
+
+   * 권한 실패
+
+     -> Preference를 통해 설정할 수 있도록 액티비티를 이동 or 안내 메시지 출력
+
+## FileSystem
+
+<img src="images/and.png" style="zoom:67%;" />
+
+> 내부저장소는 앱을 삭제하면 관련 내용이 지워지지만 외부는 남는다.
+>
+> 자바 기반이기 때문에 io로 파일시스템에 접근할 수 있다.
+
+### 외부저장소
+
+> 내부 저장소와 달리 권한을 설정해줘야 한다.
+
+* WRITE_EXTERNAL_STORAGE
+
+  : 이전 버전에서 사용했으나 현재는 바뀐 정책으로 사용하지 않는다.
+
+    위 퍼미션을 체크하려면 코드를 추가해야 한다.
+
+  ```java
+  android:requestLegacyExternalStorage="true"
+      //이전 정책을 사용하겠다
+  ```
+
+* 앱이 삭제될 때 같이 삭제하는 방법도 있다.
