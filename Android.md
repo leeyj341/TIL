@@ -465,3 +465,23 @@ LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLAT
   ```
 
 * 앱이 삭제될 때 같이 삭제하는 방법도 있다.
+
+## Preference
+
+### SharedPreference
+
+> 설정 정보를 저장할 수 있도록 지원되는 객체
+
+* editor
+
+  : 설정 정보를 기록할 때 필요한 객체
+
+  ```java
+  editor.putString("first", first_edit.getText().toString());
+  editor.putString("second", secod_edit.getText().toString());
+  editor.putBoolean("noti", noti.isChecked());
+  editor.putBoolean("siren", siren.isChecked());
+  editor.commit();
+  ```
+
+  앱 종료 후 다시 앱을 실행했을 때 설정 정보가 남아있는 것을 확인할 수 있다.
