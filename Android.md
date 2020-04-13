@@ -485,3 +485,11 @@ LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLAT
   ```
 
   앱 종료 후 다시 앱을 실행했을 때 설정 정보가 남아있는 것을 확인할 수 있다.
+
+## Fragment
+
+> 여러 개의 프래그먼트를 하나의 액티비티에 결합하여 창이 여러 개인 UI를 빌드할 수 있으며, 하나의 프래그먼트를 여러 액티비티에서 재사용할 수 있습니다. 
+>
+> 프래그먼트는 액티비티의 모듈식 섹션이라고 생각하면 됩니다.
+>
+> ex) tiles와 비슷한 개념이라고 생각하면 됨
