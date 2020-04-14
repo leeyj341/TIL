@@ -493,3 +493,32 @@ LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLAT
 > 프래그먼트는 액티비티의 모듈식 섹션이라고 생각하면 됩니다.
 >
 > ex) tiles와 비슷한 개념이라고 생각하면 됨
+>
+> ---
+>
+> 한 화면에서 복잡한 기능을 보여줘야 할 때 사용함
+>
+> ex) 카카오톡, 페이스북
+
+* LinearLayout과 사용했을 때 주의
+
+  ```markdown
+  * weight은 여백을 기준으로 가중치를 주겠다는 의미이기 때문에 **리니어 레이아웃**에 두 개 이상의 자식이 있고 한 자식에게만 weight 속성에 1을 주면 다른 한 자식이 보이지 않는다.
+  ```
+
+* 액티비티에 종속적이다.
+
+  ```markdown
+  * 액티비티의 lifecycle
+  액티비티는 back Stack에 쌓여 '뒤로' 버튼을 누르면 스택에서 하나씩 제거된다. 스택에 더 이상 액티비티가 존재하지 않으면 앱이 종료된다.
+  ```
+
+  그러나 `addToBackStack()`으로 액티비티처럼 동작하게 할 수 있다.
+
+  ```java
+  transaction.addToBackStack("first");
+  						//--------
+  						//백스택에 넣을 이름 지정 null로 해도 됨
+  ```
+
+  
