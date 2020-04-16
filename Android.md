@@ -521,4 +521,48 @@ LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLAT
   						//백스택에 넣을 이름 지정 null로 해도 됨
   ```
 
-  
+
+## Bar
+
+### menuBar
+
+> 안드로이드에서 메뉴 바
+
+<img src="images/actionbar.png" style="zoom:50%;" />
+
+res 폴더에 resource directory를 추가하여 menu bar의 아이템을 설정해줄 수 있다.
+
+* option menu
+
+### ActionBar
+
+> 디폴트로 지정
+
+* showAsAction 속성값
+  * always
+
+    : 아이템을 항상 앱바의 액션으로 표시
+
+    never와 ifRoom보다 우선, 공간이 없으면 표시되지 않음
+
+  * never
+
+    : 아이템을 앱바의 액션을 표시하지 않고 오버플로우 메뉴에 바로 표시
+
+  * ifRoom
+
+    : 만약 공간이 있다면 앱바의 액션으로 표시, 아니면 오버플로우 메뉴에 표시
+
+  * collapseActionView
+
+    : 아이템에 커스텀 액션 뷰가 지정된 경우, 축소된 형태로 표시
+
+  * withText
+
+    : 지정한 아이콘과 텍스트 같이 보여줌
+
+  <img src="images/showasAction-1587025870350.png" style="zoom:67%;" />
+
+### ToolBar
+
+> ActionBar와 같은 기능이지만 사용자 정의로 확장 가능성이 높음
