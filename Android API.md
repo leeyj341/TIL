@@ -8,11 +8,15 @@
 
 * 없다면 settings -> Android SDK에서 SDK Tools 목록을 선택해 해당 라이브러리를 다운
 
-   <img src="C:\Users\student\Desktop\and_api.png" style="zoom:75%;" />
+   ![](images/api.png)
 
 ## Fragment
 
 > 맵이 출력될 수 있게 xml 디자인에 추가한다.
+>
+> ---
+>
+> * fragment에 대한 자세한 내용은 Android.md 참조
 
 ```java
 <fragment

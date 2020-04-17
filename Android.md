@@ -532,6 +532,8 @@ LayoutInflator Inflator = (LayoutInflator)getSystemService(Context.LAYOUT_INFLAT
 
 res 폴더에 resource directory를 추가하여 menu bar의 아이템을 설정해줄 수 있다.
 
+<img src="images/menubar.png" style="zoom: 67%;" />
+
 * option menu
 
 ### ActionBar
@@ -566,3 +568,19 @@ res 폴더에 resource directory를 추가하여 menu bar의 아이템을 설정
 ### ToolBar
 
 > ActionBar와 같은 기능이지만 사용자 정의로 확장 가능성이 높음
+
+## 기타 view
+
+### cardView
+
+### RecyclerView
+
+> 리스트보다 더 많은 장점을 가지고 있기 때문에 리스트뷰보다 리사이클러뷰 사용을 추천한다.
+>
+> androidx.recyclerview라는 외부 라이브러리에 포함되어 있다.
+
+---
+
+* ListView보다 Adapter 커스터마이징이 쉽다.
+* 그래서 확장성이 뛰어나다.
+
