@@ -590,6 +590,8 @@ res 폴더에 resource directory를 추가하여 menu bar의 아이템을 설정
 
 ### 안드로이드에서 쓰레드 처리
 
+<img src="images/and_thread.png" style="zoom: 67%;" />
+
 1. Handler를 이용
 
    1. 동시 실행흐름을 처리할 내용을 쓰레드 객체로 구현
