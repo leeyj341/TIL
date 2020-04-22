@@ -592,19 +592,127 @@ res 폴더에 resource directory를 추가하여 menu bar의 아이템을 설정
 
 <img src="images/and_thread.png" style="zoom: 67%;" />
 
-1. Handler를 이용
+#### Handler를 이용
 
-   1. 동시 실행흐름을 처리할 내용을 쓰레드 객체로 구현
+1. 동시 실행흐름으로 처리할 내용을 쓰레드 객체로 구현
 
-   2. UI쓰레드에서 Handler객체를 생성(구현 - 하위객체)
-      onCreate메서드 내부에서 처리
+2. UI쓰레드에서 Handler객체를 생성(구현 - 하위객체)
+   onCreate메서드 내부에서 처리
 
-   3. worker thread에서 Handler객체에게 작업을 의뢰
+3. worker thread에서 Handler객체에게 작업을 의뢰
 
-   4. handler객체에서 worker thread로부터 의뢰받은 내용을 처리
+4. handler객체에서 worker thread로부터 의뢰받은 내용을 처리
 
-      `-`handleMessage메서드를 이용해서 처리(오버라이딩해서 구현)
+   `-`handleMessage메서드를 이용해서 처리(오버라이딩해서 구현)
 
-      `-`work thread한테 전달받은 값으로 view를 변경
+   `-`work thread한테 전달받은 값으로 view를 변경
 
-      `-`쓰레드로부터 요청이 올때마다 handleMessage메서드가 호출
+   `-`쓰레드로부터 요청이 올때마다 handleMessage메서드가 호출됨.
+
+* **post** 메서드를 사용해서 작업할 수도 있음
+
+  ```java
+  //TextView의 값을 지속적으로 변경하는 쓰레드
+  class UIUpdateThread implements Runnable {
+      @Override
+      public void run() {
+          textView.setText(num + "");
+      }
+  }
+  //지속해서 값을 만드는 쓰레드
+  class NumThread extends Thread {
+      public void run() {
+          for (int i = 1; i <= 10; i++)   {
+              num = i;
+              //핸들러에게 UI를 변경하는 쓰레드를 전달하며 요청
+              handler.post(new UIUpdateThread());
+              SystemClock.sleep(1000);
+          }
+      }
+  }
+  
+  //onCreate메서드에서 핸들러만 생성해주면 됨
+  handler = new Handler();
+  ```
+
+#### `AsyncTask`를 이용
+
+> 시간이 오래 걸리는 작업도 가능, UI를 변경하는 작업도 가능
+
+1. `AsyncTask`를 상속받는 클래스 정의
+
+   => `AsyncTask`에 `Generic`을 적용해서 변수 세 개의 타입을 정의(**사용자 정의**)
+
+   ```markdown
+   - 첫 번째 Generic
+     : execute를 호출해서 AsyncTask를 실행할 때 필요한 매개변수의 타입
+     이 매개변수가 doInBackground를 호출할 때 전달된다.
+   
+   - 두 번째 Generic
+     : publishProgress의 매개변수 타입이면서 publishProgress가 호출할
+     onProgressUpdate의 매개변수
+     즉, doInBackground메서드 내부에서 발생되는 값들로 화면에 출력되기 위해
+     필요한 값
+     
+   - 세 번쨰 Generic
+     : doInBackground가 종료되고 리턴되는 값의 타입
+     doInBackground가 종료되면 자동으로 onPostExecute가 호출되며 매개변수로 
+     전달된다.
+   ```
+
+2. 메서드를 오버라이딩
+
+   * `onPreExecute`
+
+     : `doInBackground`메서드가 호출되기 전에 실행되는 메서드
+
+     **일반 쓰레드로 처리할 일들**이 실행되기 전 사전작업을 해야 하는 경우 구현
+
+     메인쓰레드(UI쓰레드)에서 호출되는 메서드이므로 화면처리가능
+
+     **UI쓰레드에서 호출하기 때문에 시간이 오래 걸리는 작업을 하면 안된다.**
+
+     ```markdown
+     "일반 쓰레드로 처리할 일들"
+     :`doInBackground`에서 처리되는 작업을 말함.
+     ```
+
+   * `doInBackground`
+
+     : Background에서 실행될 작업을 정의 = 일반 쓰레드에서 `run`메서드
+
+     네트워크 처리, 시간이 오래 걸리는 작업을 여기서 처리
+
+     단, 화면관련 처리는 할 수 없다.
+
+     ```markdown
+     - 매개변수가 가변형이고 배열로 처리
+     ```
+
+   * `onProgressUpdate`
+
+     : `doInBackground`가 실행되는 중에 UI를 변경해야 할 일이 있는 경우에 호출되는 메서드
+
+     `doInBackground`내부에서 화면을 변경해야 할 일이 생기면 `publishProgress`메서드를 호출 그러면,
+
+     자동으로 `onProgressUpdate`가 호출된다.
+
+     **UI쓰레드에서 호출하기 때문에 시간이 오래 걸리는 작업을 하면 안된다.**
+
+   * `onCancelled`
+
+     : 작업이 취소되는 경우 호출되는 메서드
+
+   * `onPostExecute`
+
+     : `doInBackground`메서드의 처리가 끝나면 호출되는 메서드
+
+     **UI쓰레드에서 호출하기 때문에 시간이 오래 걸리는 작업을 하면 안된다.**
+
+     (뷰를 변경할 수 있다.)
+
+3. `AsyncTask`의 하위객체를 생성
+
+4. 생성된 `AsyncTask`를 실행
+
+   * `AsyncTask`의 `excute`메서드를 호출
