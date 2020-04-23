@@ -39,7 +39,7 @@
    * `cp flume-conf.properties.template console.properties`(rename)
    * flume agent의 source, channel, sink에 대한 정보를 등록
 
-   ![](images/제목 없음-1584067047503.png)
+   ![](../images/제목 없음-1584067047503.png)
 
 5. tomcat 설치
 

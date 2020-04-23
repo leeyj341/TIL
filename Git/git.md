@@ -4,6 +4,8 @@
 >
 > 소스코드 형상 관리 도구로써, 작성되는 코드의 이력을 관리한다.
 
+![](../images/git구조.png)
+
 ## 0. 기본 설정
 
 아래의 설정은 이력 작성자(author)을 성정하는 것으로, 컴퓨터에서 최초에 한 번만 설정하면 된다.
@@ -137,3 +139,29 @@ $ git pull
 ```
 
 원격 저장소로부터 변경된 정보를 다운받는다.
+
+### 5. 원격 저장소 삭제
+
+```bash
+$ git remote rm {원격 저장소 이름}
+```
+
+### 6. 원격 저장소 목록 조회
+
+```bash
+$ git remote -v
+origin  https://github.com/leeyj341/test.git (fetch)
+origin  https://github.com/leeyj341/test.git (push)
+```
+
+## 3. git에 올린 파일 관리
+
+### 1. git rm --cached
+
+> 잘못 올라간 파일 삭제 (unstage)
+>
+> 물리적인 파일은 삭제하지 않지만 커밋 이력에서 삭제한다.
+
+### 2. git restore --staged
+
+>잘못 올라간 파일 삭제 (discard changes in working directory)

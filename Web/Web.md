@@ -76,7 +76,7 @@
   
 * [Tomcat 폴더 구조](https://blog.naver.com/heaves1/220833476759) = 기본 Context
 
-<img src="images/tomcat.png" style="zoom:80%;" />
+<img src="../images/tomcat.png" style="zoom:80%;" />
 
 * conf 폴더
 
@@ -84,7 +84,7 @@
 
     : conf 폴더 내부 server.xml은 설치한 tomcat의 설정 파일이다. 파일을 열어보면 설치 시 설정한 내용을 볼 수 있다.
 
-    ![](images/server_xml.png)
+    ![](../images/server_xml.png)
 
   * xml의 내용이 변경되면 무조건 서버를 내렸다 올려야 수정사항이 적용된다.
 
@@ -122,7 +122,7 @@
 
   : 사용자에게 보여지는 구성요소를 만듬
 
-<img src="images/html.png" style="zoom: 50%;" />
+<img src="../images/html.png" style="zoom: 50%;" />
 
 ```html
 <!DOCTYPE html>
@@ -146,7 +146,7 @@
 
   : client style sheet 라고 하며 디자인 적 요소를 추가할 수 있는 언어
 
-<img src="images/css.png" style="zoom: 50%;" />
+<img src="../images/css.png" style="zoom: 50%;" />
 
 * javaScript
 
@@ -214,4 +214,4 @@
 
   **jumbotron text-center**는 부트스트랩 css 파일이 제공하는 속성으로 위 html을 실행 시 아래와 같이 속성이 적용된 화면을 볼 수 있다.
 
-  ![](images/bootstrap.png)
+  ![](../images/bootstrap.png)

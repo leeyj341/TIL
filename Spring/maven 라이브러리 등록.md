@@ -2,7 +2,7 @@
 
 * `dependency`태그를 통해 라이브러리를 등록한다.
 
-  <img src="images/pom.png" style="zoom: 75%;" />
+  <img src="../images/pom.png" style="zoom: 75%;" />
 
 > 단, [maven 사이트](https://mvnrepository.com/)에서 지원하는 repository만 `dependency`태그를 통해 등록이 가능하다.
 >
@@ -12,7 +12,7 @@
 
   * 방법 1
   
-    ![](images/설정파일.png)
+    ![](../images/설정파일.png)
   
   * 방법 2
   

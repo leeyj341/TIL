@@ -4,13 +4,13 @@
 
 2. 라이브러리를 lib폴더에 복사하기
 
-   <img src="images/springlib.png" style="zoom: 80%;" />
+   <img src="../images/springlib.png" style="zoom: 80%;" />
 
 3. `DispatcherServlet`을 web.xml에 등록
 
    => 모든 요청이 `DispatcherServlet`을 통해 진입하도록 설정해야 스프링이 제공하는 여러 가지 기능을 적용할 수 있다.(**frontController 패턴**이 적용되어 있다.)
 
-   <img src="images/springxml.png" style="zoom: 80%;" />
+   <img src="../images/springxml.png" style="zoom: 80%;" />
    
 4. spring에서 사용할 설정파일을 작성한다.
 

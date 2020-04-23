@@ -146,7 +146,7 @@
   >
   > property를 등록한다.
 
-  ![](images/core.png)
+  ![](../images/core.png)
 
 * hdfs-site.xml
 

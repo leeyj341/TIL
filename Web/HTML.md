@@ -25,7 +25,7 @@
 
 * 주석 주의!!
 
-  <img src="images/주석.png" style="zoom: 67%;" />
+  <img src="../images/주석.png" style="zoom: 67%;" />
 
   클라이언트에게 내용이 보이는 주석이라 중요한 내용은 적지 않는다.
 

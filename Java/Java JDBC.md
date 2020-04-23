@@ -97,7 +97,7 @@ getConnection 메서드가 리턴하는 객체는 Connection 객체에 종속적
 >
 > 이것 또한 **연결된 DBMS에 따라 다른 Statement 객체가 생성**된다!
 
-![](images/Statement 구조.png)
+<img src="../images/Statement 구조.png" style="zoom:67%;" />
 
 * Statement
 

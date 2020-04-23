@@ -6,7 +6,7 @@
 
 오라클(주로 대기업), MySQL(주로 중소기업), MSSQL(주로 중소기업), 티베로 등...
 
-![sds없음](images/sds없음.png)
+![sds없음](../images/sds없음.png)
 
 * Sql
 
@@ -24,11 +24,11 @@
 
 - [ ] [관리도구](제어판\시스템 및 보안\관리 도구) 들어가서 **서비스** 아이콘 클릭해 서버가 실행되고 있는지 확인
 
-![fd](images/fd.png)
+![fd](../images/fd.png)
 
 - [ ] 오라클이 설치된 폴더안 ADMIN폴더로 가서 listener.ora와 tnsnames.ora파일을 열고 내용에 한글 경로가 없는지 확인
 
-![제목 없음](images/제목 없음-1576632786766.png)
+![제목 없음](../images/제목 없음-1576632786766.png)
 
-![제목 2](images/제목 2.png)
+![제목 2](../images/제목 2.png)
 

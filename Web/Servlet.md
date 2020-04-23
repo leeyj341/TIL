@@ -24,7 +24,7 @@
 
 * 사용하는 라이브러리
 
-  ![](images/servlet&jsp라이브러리.png)
+  ![](../images/servlet&jsp라이브러리.png)
 
 * 서블릿 객체의 소멸
 
@@ -513,6 +513,3 @@
 
        * `forward`와 동일
        * `jsp`에서 주로 사용하는 요청재지정 방식
-
-## DB 연동
-
