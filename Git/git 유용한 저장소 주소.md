@@ -16,3 +16,15 @@
 
 > https://github.com/milooy/remote-or-flexible-work-company-in-korea
 
+* 좋은 git commit 메시지를 위한 영어 사전
+
+> https://blog.ull.im/engineering/2019/03/10/logs-on-git.html
+
+* 백엔드 개발자를 꿈꾸는 학생개발자에게
+
+> https://d2.naver.com/news/3435170
+
+* 좋은 git 커밋 메시지를 작성하기 위한 7가지 약속
+
+> https://meetup.toast.com/posts/106
+
