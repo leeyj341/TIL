@@ -22,6 +22,9 @@
 * .gitignore
 * git status를 통한 관리
 * git branch
+* git stash
+* git reset & revert
+* github flow
 * git 유용한 저장소
 
 ### :file_folder:[Hadoop](./Hadoop)
