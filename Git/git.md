@@ -11,7 +11,7 @@
 아래의 설정은 이력 작성자(author)을 성정하는 것으로, 컴퓨터에서 최초에 한 번만 설정하면 된다.
 
 ```bash
-$ git config --global user.name leeyj3794 << 본인 github 계정
+$ git config --global user.name leeyj341 << 본인 github 계정
 $ git config --global user.email leeyj3794@gmail.com << 본인 github 가입 계정 이메일로 변경
 ```
 
