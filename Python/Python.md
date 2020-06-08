@@ -10,7 +10,7 @@
   boolean = True
   ```
 
-* `arr`
+* `list(arr)`
 
   > 배열, 파이썬에서는 리스트라고 부름
   >
@@ -41,7 +41,63 @@
 
   ```python
   print(mask["삼성"])
+  print(mask)
+  print(mask.keys())		# key만
+  print(mask.values())	# value만
+  print(mask.items())		# 둘 다
   ```
+  
+  ```python
+  # .get과 [] 접근 차이점
+  dict_a = { "삼성" : 100, "역삼" : 50 }
+  # 해당 키가 없으면 None을 리턴한다.
+  print(dict_a.get("선릉"))
+  # 해당 키가 없으면 오류가 발생한다.
+  print(dict_a["선릉"])
+  ```
+  
+* tuple
+
+  ```python
+  tuple_a = ()
+  tuple_a = (1, 2) # tuple()로는 생성이 불가
+  print(tuple_a)
+  ```
+
+  ```python
+  # 값을 하나만 넣고자 한다면
+  # list와 달리 ,를 꼭 넣어야 한다.
+  tuple_b = (1,)
+  tuple_c = (1)
+  print(type(tuple_b))	# tuple
+  print(type(tuple_c))	# int
+  ```
+
+* set
+
+  > 순서가 없이 저장되는 자료구조
+  >
+  > dictionary처럼 생성하지만 key값이 없고 중복을 제거한다.
+
+  ```python
+  set_b = {} # 이렇게 만들 경우 빈 dictionary가 생성된다.
+  set_b = set() # 이렇게 생성해야 함.
+  ```
+
+  ```python
+  set_a = {1, 2, 3}
+  set_b = {3, 6, 8}
+  print(set_a - set_b) # 집합처럼 사용 가능
+  print(set_a | set_b) # 합집합
+  print(set_a & set_b) # 교집합
+  ```
+
+  ```python
+  list_a = [1, 1, 1, 1]
+  print(list(set(list_a))[0])
+  ```
+
+  이런식으로 형변환해 list의 중복을 제거할 수 있다.
 
 ## 조건
 
@@ -263,7 +319,3 @@ print(minus) # 결과는 1
   if result > 0 :
       print(f"4등 {result} 번 했습니다.")
   ```
-
-  
-
-  
