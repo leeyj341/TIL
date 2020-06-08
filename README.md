@@ -9,12 +9,14 @@
 * Android 구조
 * Android API 사용법
 * Android Studio 내용 정리
+* Android를 활용한 멀티 채팅
 
 ### :floppy_disk:[DB & SQL](./DB&SQL)
 
 * Oracle 내용 정리
 * MongoDB 내용 정리
 * SQL 명령어 모음
+* SQLite
 
 ### :point_right:[**Git**](./git)
 
@@ -40,12 +42,12 @@
 ### :tea:[Java](./Java)
 
 * Java 구조
-
 * Java 기초 문법
 * Java API
 * Java 자료구조
 * Java 객체지향 
 * Java 특징
+* 네트워크 프로그래밍
 
 ### :leaves:[Spring](./Spring)
 
@@ -65,11 +67,23 @@
 * Servlet 사용 방법
 * Web 개발 환경 설정 방법
 
+### :electric_plug:[Arduino](./Arduino)
+
+* Arduino와 Eclipse를 활용한 통신
+* CAN 통신
+* MQTT 서버
+
 ### :memo:[기타](./기타)
 
 * 정규표현식
 * 프로젝트 관리
 * R
 * 마크다운 사용법
-
 * RFP 주요 내용
+
+### :computer:[Python](./Python)
+
+* Python 기초 문법
+
+* Python 자료구조
+* Python 제어문
