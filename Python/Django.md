@@ -136,6 +136,37 @@
 
   <img src="../images/image-20200610141548386.png" alt="image-20200610141548386" style="zoom:80%;" />
 
+## GET
+
+> 주로 조회할 때 사용하는 요청 방식
+
+* 정보를 보내는 페이지
+
+  ![image-20200612113408692](../images/image-20200612113408692.png)
+
+* `urls.py`
+
+  ![image-20200612112336295](../images/image-20200612112336295.png)
+
+* `views.py`
+
+  ![image-20200612112853523](../images/image-20200612112853523.png)
+
+  ```python
+  request.GET.get('message')	# 해당 값이 없어도 상관없음
+  request.GET['message']		# 해당 값이 없으면 오류 발생
+  ```
+
+* `catch.html`
+
+  ![image-20200612112918958](../images/image-20200612112918958.png)
+
+```markdown
+이렇게 페이지끼리 값을 주고 받을 수 있다.
+```
+
+
+
 
 
 
