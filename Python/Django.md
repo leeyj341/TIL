@@ -157,6 +157,8 @@
   request.GET['message']		# 해당 값이 없으면 오류 발생
   ```
 
+  * GET으로 받은 값이 `dictionary`와 **완전히 같은** 형식일까?
+
 * `catch.html`
 
   ![image-20200612112918958](../images/image-20200612112918958.png)
@@ -165,7 +167,110 @@
 이렇게 페이지끼리 값을 주고 받을 수 있다.
 ```
 
+## 여러 개의 어플리케이션 만들기
 
+> app 생성 명령으로 새로운 앱을 만든다.
+
+```bash
+python manage.py startapp secondapp
+```
+
+* `mysite`의 `urls.py`에 `views`를 정의하려고 하면 에러가 발생한다.
+
+  ```python
+  from pages import views			# 이름이 같아서
+  from secondapp import views		# 에러가 발생한다.
+  
+  urlpatterns = [
+      path('throw/', views.throw),
+      path('index/', views.index),
+  ]
+  ```
+
+  누구의 `views`를 불러와야 하는지 알 수가 없다.
+
+* `urls.py`분리하기
+
+  <img src="../images/image-20200613143529364.png" alt="image-20200613143529364" style="zoom:80%;" />\
+
+  이제 어플리케이션 별로 `urls.py`를 작성해서 사용할 것이다.
+
+* 새로 생성한 `urls.py`에 내용도 `mysite`에 있는 `urls.py`처럼 정의한다.
+
+  ![image-20200613143702890](../images/image-20200613143702890.png)
+
+* `mysite`의 `urls.py`에 이 경로를 정의해준다.
+
+  ![image-20200613162151711](../images/image-20200613162151711.png)
+
+  > 이제 각 앱이 가진 `urls.py`를 통해 접근할 수 있다.
+
+* 이때 같은 이름의 `path`가 존재한다면 `urls.py`에서 제일 상위에 정의된 어플리케이션의 **templates** 경로를 찾아 그 안의 `html`파일로만 적용이 된다.
+
+  * ex) 
+
+    ```markdown
+    * 127.0.0.1:8000/secondapp/index
+    * 127.0.0.1:8000/pages/index
+    ```
+
+    ![image-20200613161832545](../images/image-20200613161832545.png)
+
+    각자 맞는 페이지에 접근하게 하기 위해 **templates** 폴더 안에 각 앱의 이름으로 된 폴더를 정의해 그 안으로 `html`파일을 이동시킨다.
+
+    ![image-20200613162014485](../images/image-20200613162014485.png)
+
+    이제 **`127.0.0.1:8000/pages/index`**의 형식으로 접근이 가능하다.
+
+* 이제 다른 `html`페이지 **내**에서 `pages`나 `secondapp`에 있는 페이지에 접근하려면 **`name`**속성을 정의해서 접근해야 한다.
+
+  ![image-20200613161143786](../images/image-20200613161143786.png)
+
+  * 만약 `name`속성까지 같은 페이지가 있다면 ?
+
+    > 어떤 `app`의 `name`인지 구분이 필요
+
+    ![image-20200613161345482](../images/image-20200613161345482.png)
+
+    ![image-20200613161437217](../images/image-20200613161437217.png)
+
+    이런 방법으로 **어떤 app의 어떤 name**인지 구분해서 접근할 수 있다.
+
+## 기본 html 페이지 작성하기
+
+* `mysite`의 `settings.py`에 기본 `html`을 가져올 곳의 프로젝트와 경로를 정의
+
+  ![image-20200613164704823](../images/image-20200613164704823.png)
+
+  실제로 이 위치에 있다.
+
+  ![image-20200613164825290](../images/image-20200613164825290.png)
+
+  `base.html`의 내용은 다음과 같다.
+
+  ![image-20200613165040169](../images/image-20200613165040169.png)
+
+* 다른 페이지에서 사용할 때 **DTL**을 이용해 접근할 수 있다.
+
+  ![image-20200613165308553](../images/image-20200613165308553.png)
+
+## static 폴더 사용하기
+
+> image나 css 등 spring에서 사용한 것처럼 정적 폴더를 이용한 경로로 해당 파일에 접근할 수 있다.
+
+* `static`폴더를 정의한다.
+
+  ![image-20200613165758988](../images/image-20200613165758988.png)
+
+  * `settings.py`의 내용때문에 이런 일이 가능하다.
+
+    ![image-20200613170052635](../images/image-20200613170052635.png)
+
+* `static`폴더에 있는 `image`를 사용해보자
+
+  ![image-20200613170142195](../images/image-20200613170142195.png)
+
+  
 
 
 
