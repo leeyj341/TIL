@@ -106,3 +106,34 @@
   print(list_a, list_b)		# 둘의 내용이 같다.
   ```
 
+## 객체
+
+* class
+
+  ```python
+  class Person : 		# 클래스 객체 생성(클래스 정의)
+      name = "이름이란, 사람이 공통적으로 가지는 속성"
+      age = "나이란, 내가 태어나서 죽을때까지 기간"
+  
+      def greeting(self) :
+          return f"{self.name}이(가) 인사합니다. 안녕하세요!"
+  
+      def aging(self) :
+          return f"{self.name}은(는) {self.age}살 입니다."
+  
+      @classmethod    # 자바에서 static method와 같은 역할
+      def age_means(cls) :
+          return f"{cls.name}은 나라마다 다르다."
+  ```
+
+  * classmethod
+
+    > 자바에서 static 메서드와 같은 역할로, 객체를 생성하지 않고 실행 가능한 메서드
+
+    ```python
+    print(Person.age_means())
+    #     ------------------
+    #     이렇게 사용이 가능하다.
+    ```
+
+    
