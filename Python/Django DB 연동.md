@@ -32,6 +32,8 @@
 
   ```bash
   python manage.py shell
+  # 모델을 가지고 와야함
+  from articles.models import Article
   ```
 
 ### create
@@ -41,7 +43,7 @@ insert into table(column1, column2, ...)
 			values(values1, values2, ...) 
 ```
 
-#### record를 생성(추가)하는 방법
+* record를 생성(추가)하는 방법
 
 1. ```python
    article = Article()
@@ -66,7 +68,7 @@ insert into table(column1, column2, ...)
 select * from articles_article
 ```
 
-#### record를 읽는 방법
+* record를 읽는 방법
 
 1. ```python
    article = Article.objects.all()
@@ -119,7 +121,7 @@ select * from articles_article
 update articles_article set title='byebye' where id=1
 ```
 
-#### record 수정하기
+* record 수정하기
 
 1. ```python
    article = Article.objects.get(pk=1)
@@ -133,10 +135,36 @@ update articles_article set title='byebye' where id=1
 delete from articles_article where id=1
 ```
 
-#### record 삭제하기
+* record 삭제하기
 
 1. ```python
    article = Article.objects.get(pk=1)
    article.delete()
    # 자동으로 저장이 되기 때문에 save()가 필요없음
    ```
+
+## 정렬
+
+> ASC / DESC
+
+```python
+Article.objects.all().order_by('pk')	# ASC
+Article.objects.all().order_by('-pk')	# DESC
+```
+
+* 인덱스 접근과의 차이
+
+  ```python
+  Article.objects.all()[::-1]
+  # 이렇게 해도 '-pk'한 것과 같은 결과를 볼 수 있다.
+  ```
+
+  > `'-pk'`를 이용해서 정렬하는 것은 **DB단에서부터** 정렬해오는 것
+  >
+  > `[::-1]`을 이용해서 정렬하는 것은 가져온 값을 **읽을 때 정렬**하는 것
+
+## `views.py`에서 사용 예
+
+![image-20200616174050234](../images/image-20200616174050234.png)
+
+이런식으로 간단하게 DB연동을 구현할 수 있다.
