@@ -84,6 +84,7 @@
 ### :computer:[Python](./Python)
 
 * Python 기초 문법
-
 * Python 자료구조
 * Python 제어문
+* Django 기초 사용법
+* Django DB 연동
