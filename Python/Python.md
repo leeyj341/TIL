@@ -210,27 +210,28 @@
     ```
 
     range를 이용해 for문을 작성할 수 있다.
-
-  ```python
-  number = ["삼성", "역삼", "선릉", "영등포"]
-  for i in range(len(number)) :
-      print(i)
-      print(number[i])
-  ```
+  
+    ```python
+    number = ["삼성", "역삼", "선릉", "영등포"]
+    for i in range(len(number)) :
+        print(i)
+        print(number[i])
+    ```
 
   * `dictionary`의 `for`문
 
-  ```python
-  for i in mask.keys() :
-      print(i)
+    ```python
+    for i in mask.keys() :
+        print(i)
+    
+    for val in mask.values() :
+        print(val)
+    
+    for key, val in mask.items() :
+        print(key, val)
+        print(mask[key])
+    ```
   
-  for val in mask.values() :
-      print(val)
-  
-  for key, val in mask.items() :
-      print(key, val)
-      print(mask[key])
-  ```
 
 ## 외장 함수
 
