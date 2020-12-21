@@ -18,7 +18,7 @@
 * SQL 명령어 모음
 * SQLite
 
-### :point_right:[**Git**](./git)
+### :point_right:[**Git**](./Git)
 
 * git 기초 문법
 * .gitignore
